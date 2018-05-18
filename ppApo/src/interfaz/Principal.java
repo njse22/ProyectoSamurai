@@ -15,12 +15,14 @@ import javax.swing.*;
 
 import hilos.HiloPersonajeDos;
 import hilos.HiloPersonajeUno;
-import hilos.HiloSalto;
+import hilos.HiloSaltoPersonajeUno;
 import modelo.Jugador;
 import modelo.Partida;
 import modelo.Personaje;
 
 public class Principal extends JFrame {
+	
+	public final static int PISO = 200;
 	
 	private Partida partida; 
 
@@ -41,7 +43,7 @@ public class Principal extends JFrame {
 	
 	private HiloPersonajeUno hilo1;
 	private HiloPersonajeDos hilo2;
-	private HiloSalto hilo3;
+	private HiloSaltoPersonajeUno hilo3;
 	
 	private int estadoKey1;
 	private int estadoKey2;
@@ -91,10 +93,10 @@ public class Principal extends JFrame {
 		setSize(new Dimension(768 , 336));
 		
 		getContentPane().add(labPersonaje2);
-        labPersonaje2.setBounds(partida.getPrimero().getPosX(),partida.getPrimero().getPosY(), 51, 106);
+        labPersonaje2.setBounds(partida.getUltimo().getPosX(),partida.getUltimo().getPosY(), 51, 106);
 	
         getContentPane().add(labPersonaje1);
-        labPersonaje1.setBounds(partida.getUltimo().getPosX(), partida.getUltimo().getPosY(), 51, 106);
+        labPersonaje1.setBounds(partida.getPrimero().getPosX(), partida.getPrimero().getPosY(), 51, 106);
         
         getContentPane().add(fondo);
         fondo.setBounds(0, 0, 768, 336);
@@ -207,8 +209,10 @@ public class Principal extends JFrame {
 	public int moverY(int deltaY, int deltaYdy) {
 		int mover = 0;
 
-		if (personajeActual == p1) 
+		if (personajeActual == p1) {
 			mover = partida.getPrimero().moverEnY(deltaY, deltaYdy);
+		} 
+			
 		else 
 			mover = partida.getUltimo().moverEnY(deltaY, deltaYdy);
 		
@@ -250,13 +254,23 @@ public class Principal extends JFrame {
 		}
 	}
 		
-	public void validarMovimiento(int x, int y)
+	public void validarMovimiento()
 	{
-		if(keyActual.equals(keysPersonajeUno()[2]))
-		{
-			hilo3 = new HiloSalto(this);
-			hilo3.start();
+		if(personajeActual == p1) {
+
+			if(keyActual.equals(keysPersonajeUno()[2]))
+			{
+				hilo3 = new HiloSaltoPersonajeUno(this,p1);
+				hilo3.start();
+			}
 		}
+		else {
+			if (keyActual.equals(keysPersonaje2()[2])) {
+				hilo3 = new HiloSaltoPersonajeUno(this,p2);
+				hilo3.start();
+			}
+		}
+		
 	}
 	
 	public void pintarImagenSalto()

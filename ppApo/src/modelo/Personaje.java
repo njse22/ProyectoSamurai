@@ -125,17 +125,25 @@ public class Personaje  {
 
 	public int moverEnY(int deltaY, int deltaYdx) {
 		setPosY(deltaY += deltaYdx);
-		boolean bajo = false;
-		controlSalto++;
-		if (controlSalto == 30) {
-			while(!bajo) {
-				setPosY(deltaY -= deltaYdx);
-				controlSalto--;
-				if(controlSalto == 1) {
-					bajo = true;
-				}
-			}
+		int y = getPosY();
+		
+		System.out.println(y+ "ddd");
+		if (y == -3) {
+			setPosY(deltaY);
 		}
+		
+		
+//		boolean bajo = false;
+//		controlSalto++;
+//		if (controlSalto == 30) {
+//			while(!bajo) {
+//				setPosY(deltaY -= deltaYdx);
+//				controlSalto--;
+//				if(controlSalto == 1) {
+//					bajo = true;
+//				}
+//			}
+//		}
 	
 		return getPosY();
 	}
