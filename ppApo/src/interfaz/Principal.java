@@ -362,6 +362,7 @@ public class Principal extends JFrame {
 	{
 		Principal p = new Principal();
 		System.out.println("HOLIIIIIIIIIIIIIIIIIIIII");
+		System.out.println("HOLIIIIIIIIIIIIIIIIIIIII");
 		DialogoInicio comenzar = p.getDialogoInicio();
 		
 		comenzar.setVisible(true);
