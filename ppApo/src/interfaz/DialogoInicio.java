@@ -83,6 +83,10 @@ public class DialogoInicio extends JDialog  implements ActionListener{
 	}
 	
 	
+	public Principal getPrincipal() {
+		return principal;
+	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -123,5 +127,7 @@ public class DialogoInicio extends JDialog  implements ActionListener{
 //		
 //		
 	}
+
+	
 	
 }

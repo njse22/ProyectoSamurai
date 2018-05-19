@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
+import modelo.Jugador;
+
 public class DialogListaJugadores extends JDialog implements ActionListener{
 
 	public final static String ORDENAR = "ORDENAR";
@@ -76,6 +78,23 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 		add(auxpanelOpcion, BorderLayout.SOUTH);
 	
 	}
+	
+	public void refrescarLista() {
+		model.removeAllElements();
+		
+		Jugador auxRaiz = dialogo.getPrincipal().getPartida().getRaiz();
+		boolean termino = false ;
+		while(!termino) {
+			
+			model.addElement(auxRaiz.getNickname());
+		}
+		
+		
+		
+	}
+	
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

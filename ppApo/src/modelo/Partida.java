@@ -69,6 +69,21 @@ public class Partida {
 		this.raiz = raiz;
 	}
 	
+	public Jugador darMayor() {
+		if(raiz == null)
+			return null;
+		else 
+			return raiz.darMayor();
+	}
+	
+	public Jugador darMenor() {
+		if (raiz == null)
+			return null;
+		else 
+			return raiz.darMenor();
+	}
+	
+	
 	public void agregar(String nickName) {
 		Jugador nuevo = new Jugador (nickName, 0, "");
 
@@ -87,6 +102,10 @@ public class Partida {
 		else
 			return raiz.buscar(nickName);
 		
+	}
+	
+	public Jugador eliminar(Jugador eliminar) {
+		return raiz.eliminar(eliminar);
 	}
 	
  

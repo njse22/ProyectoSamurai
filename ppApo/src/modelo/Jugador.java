@@ -82,6 +82,22 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 		return nickname.compareToIgnoreCase(jugador.getNickname());
 	}
 
+	public Jugador darMayor() {
+		if(derecha == null)
+			return this;
+		else
+			return derecha.darMayor();
+		
+	}
+	
+	public Jugador darMenor() {
+		if(izquierda == null)
+			return this;
+		else 
+			return izquierda.darMenor();
+	}
+	
+	
 	public void agregarJugador(Jugador nuevo) {
 		if(this.compareTo(nuevo) > 0) {
 			if(izquierda == null)
@@ -115,6 +131,31 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 
 	}	
 
+	public Jugador eliminar(Jugador eliminar) {
+		if(izquierda == null && derecha == null) {
+			return null;
+		}
+		
+		if(this.compareTo(eliminar) == 0) {
+			if(izquierda == null)
+				return derecha;
+			if(derecha == null)
+				return izquierda;
+		
+			Jugador sucesor = derecha.darMenor();
+			derecha.eliminar(sucesor);
+			sucesor.izquierda = izquierda;
+			sucesor.derecha = derecha;
+			return sucesor;
+			
+		}
+		else if(this.compareTo(eliminar) > 0)
+			izquierda = izquierda.eliminar(eliminar);
+		else 
+			derecha = derecha.eliminar(eliminar);
+		return this;
+	}
+	
 	
 	
 	
