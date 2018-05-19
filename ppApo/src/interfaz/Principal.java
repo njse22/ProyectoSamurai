@@ -53,6 +53,10 @@ public class Principal extends JFrame {
 	 * variable de control que ayuda a cambiar las imagenes de los personajes. 
 	 * */
 	private int controlImagen1;
+	private int controlImagenAtaqueDerecha1;
+	private int controlImagenAtaqueIzquierda1;
+	private int controlImagenAtaqueDerecha2;
+	private int controlImagenAtaqueIzquierda2;
 	private int controlImagen2;	
 	private int controlImagenSalto;
 	private int controlImagenSaltoBajar;
@@ -95,16 +99,21 @@ public class Principal extends JFrame {
 		
 		getContentPane().add(labPersonaje2);
         labPersonaje2.setBounds(partida.getUltimo().getPosX(),partida.getUltimo().getPosY(), 51, 106);
+//        labPersonaje2.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
 	
         getContentPane().add(labPersonaje1);
-        labPersonaje1.setBounds(partida.getPrimero().getPosX(), partida.getPrimero().getPosY(), 51, 106);
+        labPersonaje1.setBounds(partida.getPrimero().getPosX(), partida.getPrimero().getPosY(), 118, 122);
         
         getContentPane().add(fondo);
         fondo.setBounds(0, 0, 768, 336);
 		
 		inicio = new DialogoInicio(this);
 		controlImagen1 = 1;
-		controlImagen2 = 2;
+		controlImagenAtaqueDerecha1=1;
+		controlImagenAtaqueIzquierda1=1;
+		controlImagenAtaqueDerecha2=1;
+		controlImagenAtaqueIzquierda2=1;
+		controlImagen2 = 1;
 	
 		keysPersonajeUno();
 		keysPersonaje2();	
@@ -153,12 +162,14 @@ public class Principal extends JFrame {
 		animacion1 = new Animacion(labPersonaje1, 24,this);
 		animacion1.Accion(keysPersonajeUno()[0], -3,  0);
 		animacion1.Accion(keysPersonajeUno()[1],  3,  0);
-		animacion1.Accion(keysPersonajeUno()[2],  0, -3);
+		animacion1.Accion(keysPersonajeUno()[2],  0, 0);
+		animacion1.Accion(keysPersonajeUno()[3],  0, 0);
 			
 		animacion2 = new Animacion(labPersonaje2, 24,this);
 		animacion2.Accion(keysPersonaje2()[0], -3,  0);
 		animacion2.Accion(keysPersonaje2()[1],  3,  0);
-	
+		animacion2.Accion(keysPersonaje2()[2],  0, 0);
+		animacion2.Accion(keysPersonaje2()[3],  0, 0);
 	}
 	
 	public void determinarPersonaje(String key)
@@ -224,8 +235,9 @@ public class Principal extends JFrame {
 		
 		keys1[0] = "A";
 		keys1[1] = "D";
-		keys1[2] = "W";
-		keys1[3] = "S";
+		keys1[2] = "C";
+		keys1[3] = "V";
+		
 		
 		return keys1;
 	}
@@ -234,8 +246,8 @@ public class Principal extends JFrame {
 		
 		keys2[0] = "LEFT";
 		keys2[1] = "RIGHT";
-		keys2[2] = "UP";
-		keys2[3] = "DOWN";
+		keys2[2] = "M";
+		keys2[3] = "N";
 		
 		return keys2;
 	}
@@ -274,24 +286,24 @@ public class Principal extends JFrame {
 		}
 	}
 		
-	public void validarMovimiento()
-	{
-		if(personajeActual == p1) {
-
-			if(keyActual.equals(keysPersonajeUno()[2]))
-			{
-				hilo3 = new HiloSaltoPersonajeUno(this,p1);
-				hilo3.start();
-			}
-		}
-		else {
-			if (keyActual.equals(keysPersonaje2()[2])) {
-				hilo3 = new HiloSaltoPersonajeUno(this,p2);
-				hilo3.start();
-			}
-		}
-		
-	}
+//	public void validarMovimiento()
+//	{
+//		if(personajeActual == p1) {
+//
+//			if(keyActual.equals(keysPersonajeUno()[2]))
+//			{
+//				hilo3 = new HiloSaltoPersonajeUno(this,p1);
+//				hilo3.start();
+//			}
+//		}
+//		else {
+//			if (keyActual.equals(keysPersonaje2()[2])) {
+//				hilo3 = new HiloSaltoPersonajeUno(this,p2);
+//				hilo3.start();
+//			}
+//		}
+//		
+//	}
 	
 	public void pintarImagenSalto()
 	{
@@ -359,6 +371,35 @@ public class Principal extends JFrame {
 					controlImagen1 = 1; 
 				}
 			}
+			
+			else if(keyActual.equals(keysPersonajeUno()[2]))
+			{
+				try {
+					urlLabel1= new File("data/jackImg/blanco/ataque_izquierda/"+controlImagenAtaqueIzquierda1+".png").toURI().toURL();
+					labPersonaje1.setUrl(urlLabel1);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+				controlImagenAtaqueIzquierda1++; 
+				if (controlImagenAtaqueIzquierda1 > 13) {
+					controlImagenAtaqueIzquierda1 = 1; 
+				}
+			}
+			
+			else if(keyActual.equals(keysPersonajeUno()[3]))
+			{
+				try {
+					urlLabel1= new File("data/jackImg/blanco/ataque_derecha/"+controlImagenAtaqueDerecha1+".png").toURI().toURL();
+					labPersonaje1.setUrl(urlLabel1);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+				controlImagenAtaqueDerecha1++; 
+				if (controlImagenAtaqueDerecha1 > 13) {
+					controlImagenAtaqueDerecha1 = 1; 
+				}
+			}
+			
 		}
 		else
 		{
@@ -387,6 +428,34 @@ public class Principal extends JFrame {
 				controlImagen2++; 
 				if (controlImagen2 > 6) {
 					controlImagen2 = 1; 
+				}
+			}
+			
+			else if(keyActual.equals(keysPersonaje2()[2]))
+			{
+				try {
+					urlLabel2= new File("data/jackImg/negro/ataque_derecha/"+controlImagenAtaqueDerecha2+".png").toURI().toURL();
+					labPersonaje2.setUrl(urlLabel2);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+				controlImagenAtaqueDerecha2++; 
+				if (controlImagenAtaqueDerecha2 > 13) {
+					controlImagenAtaqueDerecha2 = 1; 
+				}
+			}
+			
+			else if(keyActual.equals(keysPersonaje2()[3]))
+			{
+				try {
+					urlLabel2= new File("data/jackImg/negro/ataque_izquierda/"+controlImagenAtaqueIzquierda2+".png").toURI().toURL();
+					labPersonaje2.setUrl(urlLabel2);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+				controlImagenAtaqueIzquierda2++; 
+				if (controlImagenAtaqueIzquierda2 > 13) {
+					controlImagenAtaqueIzquierda2 = 1; 
 				}
 			}
 		}

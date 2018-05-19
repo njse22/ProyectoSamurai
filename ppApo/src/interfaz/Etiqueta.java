@@ -14,6 +14,7 @@ public class Etiqueta extends JLabel{
 		
 		icono = new ImageIcon(direccion);
 		
+		
 	}
 	
 	public void setUrl(URL nueva)
@@ -26,6 +27,8 @@ public class Etiqueta extends JLabel{
 	{
 		super.paint(g);
 		g.drawImage(icono.getImage(),0,0,51,106,null);
+	
+		
 	}
 
 }
