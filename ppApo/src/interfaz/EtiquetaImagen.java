@@ -1,12 +1,38 @@
 package interfaz;
 
-public class EtiquetaImagen {
+import java.awt.Graphics;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
+public class EtiquetaImagen extends JLabel{
+
+	private ImageIcon icono;
+	
+	
 	private EtiquetaImagen siguiente;
 	private EtiquetaImagen anterrior;
 	
-	public EtiquetaImagen() {
+	
+	
+	public EtiquetaImagen(URL direccion) {
+		
 		super();
+		
+		icono = new ImageIcon(direccion);
+	}
+	
+	public void setUrl(URL nueva)
+	{
+		icono = new ImageIcon(nueva);
+	}
+	
+//	@Override
+	public void paint(Graphics g)
+	{
+//		super.paint(g);	
+		g.drawImage(icono.getImage(),0,0,51,106,null);
 	}
 	
 	

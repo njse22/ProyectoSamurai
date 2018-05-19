@@ -81,5 +81,43 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 	public int compareTo(Jugador jugador) {
 		return nickname.compareToIgnoreCase(jugador.getNickname());
 	}
+
+	public void agregarJugador(Jugador nuevo) {
+		if(this.compareTo(nuevo) > 0) {
+			if(izquierda == null)
+				izquierda = nuevo;
+			else
+				izquierda.agregarJugador(nuevo);
+		}
+		else
+			if(derecha == null) 
+				derecha = nuevo;
+			else 
+				derecha.agregarJugador(nuevo); 
+		}
+
+	public Jugador buscar(String nickName) {
+		
+		if( nickname.compareTo(nickName) == 0)  {
+			return this;
+		}
+		else if (nickName.compareTo(nickName) < 0 ) {
+			if(izquierda == null)
+				return null;
+			else
+				return izquierda.buscar(nickName);
+		}
+		else 
+			if(derecha == null)
+				return null;
+			else
+				return derecha.buscar(nickName);
+
+	}	
+
+	
+	
+	
 	
 }
+

@@ -29,8 +29,8 @@ public class Principal extends JFrame {
 
 	private JLabel fondo;
 	
-	private Etiqueta labPersonaje1; 
-	private Etiqueta1 labPersonaje2;
+	private EtiquetaImagen labPersonaje1; 
+	private EtiquetaImagen labPersonaje2;
 	
 	private URL urlLabel1;
 	private URL urlLabel2;
@@ -85,14 +85,15 @@ public class Principal extends JFrame {
 			fondo.setIcon(f);
 			
 			urlLabel1 = new File("data/jackImg/blanco/derecha/1.png").toURI().toURL();
-			labPersonaje1=new Etiqueta(urlLabel1);
+			labPersonaje1= new EtiquetaImagen(urlLabel1);
 
 			urlLabel2 = new File("data/jackImg/negro/izquierda/1.png").toURI().toURL();
-			labPersonaje2=new Etiqueta1(urlLabel2);
+			labPersonaje2=new EtiquetaImagen(urlLabel2);
 		} 
 	
 		catch (MalformedURLException e) {
 			e.printStackTrace();
+			
 		}
 		
 		setSize(new Dimension(768 , 336));
@@ -131,7 +132,6 @@ public class Principal extends JFrame {
 		return estadoKey2;
 	}
 		
-	
 	
 	public Partida getPartida() {
 		return partida;
@@ -471,5 +471,7 @@ public class Principal extends JFrame {
 		comenzar.setVisible(true);
 
 	}
+
+	
 	
 }
