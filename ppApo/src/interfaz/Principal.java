@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Area;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -71,7 +72,7 @@ public class Principal extends JFrame {
 
 		Random rdn = new Random();
 		int numFondo = rdn.nextInt(7) + 1;
-		System.out.println(numFondo);
+		
 	
 		try {
 						
@@ -239,18 +240,37 @@ public class Principal extends JFrame {
 		return keys2;
 	}
 	
+	
+	public boolean intersects1()
+	{
+		Area a = new Area(labPersonaje1.getBounds());
+		Area b = new Area(labPersonaje2.getBounds());
+		return a.intersects(b.getBounds2D());
+	}
+	
+	public boolean intersects2()
+	{
+		Area a = new Area(labPersonaje2.getBounds());
+		Area b = new Area(labPersonaje1.getBounds());
+		return a.intersects(b.getBounds2D());
+	}
+	
 	public void moverPersonaje()
 	{
 		if(personajeActual==p1)
 		{
 			hilo1 = new HiloPersonajeUno(this);
 			hilo1.start();
+			if(intersects1()==true)
+			System.out.println(intersects1());
 		}
 		
 		else
 		{
 			hilo2 = new HiloPersonajeDos(this);
 			hilo2.start();
+			if(intersects2()==true)
+				System.out.println(intersects2());
 		}
 	}
 		
@@ -375,7 +395,7 @@ public class Principal extends JFrame {
 	public static void main(String[] args)
 	{
 		Principal p = new Principal();
-		System.out.println("");
+		
 
 		DialogoInicio comenzar = p.getDialogoInicio();
 		

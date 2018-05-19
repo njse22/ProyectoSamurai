@@ -206,7 +206,7 @@ public class Animacion implements ActionListener {
 			nextY = parentHeight - componentHeight;
 		}
 
-		System.out.println(keyControl);
+		
 		
 		//  Move the componen
 		component.setLocation(nextX, nextY);

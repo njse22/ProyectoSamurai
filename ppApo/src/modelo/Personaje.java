@@ -127,7 +127,7 @@ public class Personaje  {
 		setPosY(deltaY += deltaYdx);
 		int y = getPosY();
 		
-		System.out.println(y+ "ddd");
+		
 		if (y == -3) {
 			setPosY(deltaY);
 		}
