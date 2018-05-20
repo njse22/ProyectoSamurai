@@ -74,19 +74,21 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 		setLocationRelativeTo( null );
 		setSize(600, 600);
 		
+		refrescarLista(dialogo.getPrincipal().getPartida().getRaiz());
+		
 		add(auxPanelLista, BorderLayout.NORTH);
 		add(auxpanelOpcion, BorderLayout.SOUTH);
 	
 	}
 	
-	public void refrescarLista() {
+	public void refrescarLista(Jugador nodo) {
 		model.removeAllElements();
-		
-		Jugador auxRaiz = dialogo.getPrincipal().getPartida().getRaiz();
-		boolean termino = false ;
-		while(!termino) {
+	
+		if(nodo != null) {
+			refrescarLista(nodo.getIzquierda());
+			model.addElement(nodo.getNickname());
+			refrescarLista(nodo.getDerecha());
 			
-			model.addElement(auxRaiz.getNickname());
 		}
 		
 		

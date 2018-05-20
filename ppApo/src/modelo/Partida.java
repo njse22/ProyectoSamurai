@@ -108,6 +108,15 @@ public class Partida {
 		return raiz.eliminar(eliminar);
 	}
 	
+	public void inOrden(Jugador nodo) {
+
+		if(nodo != null) {
+			inOrden(nodo.getIzquierda());
+			System.out.println(nodo.getNickname());
+			inOrden(nodo.getDerecha());
+		}
+	}
+	
  
 	/*
 	 * serializarArchivos() : void
