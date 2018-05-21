@@ -2,6 +2,8 @@ package modelo;
 
 import java.io.Serializable;
 
+import excepciones.JugadorNoEncontradoException;
+
 /**
  * clase que representa al jugador de la partida 
  * */
@@ -112,20 +114,20 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 				derecha.agregarJugador(nuevo); 
 		}
 
-	public Jugador buscar(String nickName) {
+	public Jugador buscar(String nickName) throws JugadorNoEncontradoException {
 		
 		if( nickname.compareTo(nickName) == 0)  {
 			return this;
 		}
 		else if (nickName.compareTo(nickName) < 0 ) {
 			if(izquierda == null)
-				return null;
+				throw new JugadorNoEncontradoException(nickName);
 			else
 				return izquierda.buscar(nickName);
 		}
 		else 
 			if(derecha == null)
-				return null;
+				throw new JugadorNoEncontradoException(nickName);
 			else
 				return derecha.buscar(nickName);
 
@@ -156,7 +158,10 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 		return this;
 	}
 	
-	
+	public String toString() {
+		return this.getNickname() + "\n" + 
+			   this.getPuntaje () ;
+	}
 	
 	
 	

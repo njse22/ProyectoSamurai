@@ -1,57 +1,79 @@
 package interfaz;
 
+import java.awt.Container;
 import java.awt.Graphics;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+//import javax.jws.soap.SOAPBinding.Style;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.text.Style;
 
 public class DialogoInicio extends JDialog  implements ActionListener{
 
-	public final static String MOSTRAR_LISTA_JUGADORES = "JUGADORES",  MOSTRAR_LISTA_PUNTAGES = "MEJOR PUNTAGE", COMENZAR = "COMENZAR", AGREGAR_NUEVO_JUGADOR = "AGREGAR"; 
-
+	public final static String MOSTRAR_LISTA_JUGADORES = "JUGADORES" /*,  AGREGAR_NUEVO_JUGADOR = "AGREGAR"*/; 
+	public final static String COMENZAR = "COMENZAR";
+	
+	
 	private JButton btnListJugodor , btnListPuntage, btnComenzar, btnAgregar; 
 	
 	private JPanel panelOpciones;
 
 	private DialogListaJugadores panelJugador;
-	private DialogoPuntages puntages;
 	
 	private Principal principal;
+
+	private int contadorDeAperturas;
 
 	public DialogoInicio(Principal principal) {
 		super();
 		this.principal = principal;
 	
 		panelJugador = new DialogListaJugadores(this);
-		puntages = new DialogoPuntages(this);
 		
+		contadorDeAperturas = 0;
+				
 		setSize(608, 400);
 		setLocationRelativeTo( null );	
 		
 		iniciarOpciones();
 
+		
 	}
 	
-	public void paint(Graphics g) {
-		super.paint(g);
-		
-		ImageIcon fondo = new ImageIcon("data/imgExt/portada2.jpg");
-		
-		g.drawImage(fondo.getImage(), 0, 0, null);
-		
+	public void crearPanelJuego() {
+		JLabel imagen = new JLabel();
+		ImageIcon icono = new ImageIcon("data/imgExt/portada2.jpg");
+		imagen = new JLabel("");
+		imagen.setIcon(icono);
+		this.add(imagen); 
 	}
+	 
+	
+	
+//	public void paint(Graphics g) {
+//		super.paint(g);
+//		
+//		ImageIcon fondo = new ImageIcon("data/imgExt/portada2.jpg");
+//		
+//		g.drawImage(fondo.getImage(), 0, 0, null);
+//		
+//	}
 	
 	public void iniciarOpciones() {
 		
 		panelOpciones = new JPanel();
 	
+		 
+		
 		btnComenzar = new JButton("COMENZAR");
 		btnComenzar.setActionCommand(COMENZAR); 
 		btnComenzar.addActionListener(this); 
@@ -60,26 +82,29 @@ public class DialogoInicio extends JDialog  implements ActionListener{
 		btnListJugodor.setActionCommand(MOSTRAR_LISTA_JUGADORES); 
 		btnListJugodor.addActionListener(this); 
 		
-		btnListPuntage = new JButton("Mostras Mejores Puntages");
-		btnListPuntage.setActionCommand(MOSTRAR_LISTA_PUNTAGES); 
-		btnListPuntage.addActionListener(this); 
-		
-		btnAgregar = new JButton("AGREGAR");
-		btnAgregar.setActionCommand(AGREGAR_NUEVO_JUGADOR);
-		btnAgregar.addActionListener(this);
+//		btnListPuntage = new JButton("Mostras Mejores Puntages");
+//		btnListPuntage.addActionListener(this); 
+//		
+//		btnAgregar = new JButton("AGREGAR");
+//		btnAgregar.addActionListener(this);
 		
 		panelOpciones.setLayout(null);
 		btnComenzar.setBounds(10, 300, 120, 25);
 		btnListJugodor.setBounds(10, 325, 250, 25);
-		btnListPuntage.setBounds(10, 350, 250, 25);
-		btnAgregar.setBounds(0, 0, 120, 25);
+//		btnListPuntage.setBounds(10, 350, 250, 25);
+//		btnAgregar.setBounds(0, 0, 120, 25);
 		
 		panelOpciones.add(btnComenzar);
 		panelOpciones.add(btnListJugodor);
-		panelOpciones.add(btnListPuntage);
+//		panelOpciones.add(btnListPuntage);
 //		panelOpciones.add(btnAgregar);
 		
+		crearPanelJuego();
+		
 		add(panelOpciones);
+		
+		
+		
 	}
 	
 	
@@ -109,23 +134,17 @@ public class DialogoInicio extends JDialog  implements ActionListener{
 		
 		else if (MOSTRAR_LISTA_JUGADORES.equals(e.getActionCommand())) {	
 			panelJugador.setVisible(true);
+			panelJugador.refrescarLista(principal.getPartida().getRaiz());
 			dispose();
+//			if (contadorDeAperturas > 0) {
+//				panelJugador.getModel().removeAllElements();
+//			}
+//			contadorDeAperturas++;	
 			
 		}	
 		
-		else if(MOSTRAR_LISTA_PUNTAGES.equals(e.getActionCommand())) {
-			puntages.setVisible(true);
-			dispose();
-			
-		}
 		
-//		else if (AGREGAR_NUEVO_JUGADOR.equals(e.getActionCommand())) {
-//
-//			
-//			
-//		}
-//		
-//		
+		
 	}
 
 	

@@ -11,6 +11,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import excepciones.JugadorNoEncontradoException;
+
 /**
  * claase que representa una partida del juego donde se enfrentaran dos jugadores.
  * */
@@ -86,7 +88,6 @@ public class Partida {
 	
 	public void agregar(String nickName) {
 		Jugador nuevo = new Jugador (nickName, 0, "");
-
 		if (raiz == null)
 			raiz = nuevo;
 		else {
@@ -95,7 +96,8 @@ public class Partida {
 			
 	}
 
-	public Jugador buscarJugador(String nickName){
+	
+	public Jugador buscarJugador(String nickName) throws JugadorNoEncontradoException{
 		
 		if(raiz == null)
 			return null;

@@ -9,7 +9,9 @@ public class JugadorNoEncontradoException extends Exception{
 		
 	}
 	
-	
+	public String getJugadorNoEncontrado() {
+		return jugadorNoEncontrado;
+	}
 	
 	
 }
