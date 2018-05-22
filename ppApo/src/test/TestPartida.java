@@ -105,8 +105,8 @@ class TestPartida {
 //	void testBuscar() {
 //		setupEscenerio5();
 //		
-//		assertNotNull(partida.buscarJugador("jugador9"));		
-//		assertNull(partida.buscarJugador("jugador22"));
+//			
+//	
 //		
 //	}
 	
