@@ -29,10 +29,12 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 	public final static String ORDENAR = "ORDENAR";
 	public final static String BUSCAR = "BUSCAR";
 	public final static String REGRESAR = "REGRESAR";
+	public final static String ELIMINAR = "ELIMINAR";
 	
 	private JButton btnOrdenar;
 	private JButton btnBuscar;
 	private JButton btnRegresar;
+	private JButton btnEliminar;
 	
 	private DefaultListModel<String> model;
 	private JList listaJugadores;
@@ -54,6 +56,7 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 		btnOrdenar = new JButton("ORDENAR");
 		btnBuscar = new JButton("BUSCAR");
 		btnRegresar = new JButton("REGRESAR");
+		btnEliminar = new JButton("ELIMINAR");
 		
 		model = new DefaultListModel<String>();
 		listaJugadores = new JList(model);
@@ -62,26 +65,29 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 		btnOrdenar.setActionCommand(ORDENAR);
 		btnBuscar.setActionCommand(BUSCAR);
 		btnRegresar.setActionCommand(REGRESAR);
+		btnEliminar.setActionCommand(ELIMINAR);
 		
 		btnOrdenar.addActionListener(this);
 		btnBuscar.addActionListener(this);
 		btnRegresar.addActionListener(this);
+		btnEliminar.addActionListener(this);
 		
 		JPanel auxpanelOpcion = new JPanel();
 		auxpanelOpcion.add(btnOrdenar);
 		auxpanelOpcion.add(btnBuscar);
 		auxpanelOpcion.add(btnRegresar);
+		auxpanelOpcion.add(btnEliminar);
 		
 		JPanel auxPanelLista = new JPanel();
 		listaJugadores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listaJugadores.setPreferredSize(new Dimension(300, 300));
+		listaJugadores.setPreferredSize(new Dimension(400, 300));
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		auxPanelLista.add(scroll);
 		
 		setLocationRelativeTo( null );
-		setSize(325, 200);
+		setSize(450, 200);
 		
 		refrescarLista(dialogo.getPrincipal().getPartida().getRaiz());
 		
@@ -98,6 +104,10 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 		this.model = model;
 	}
 	
+	
+	public void limpiarLista() {
+		model.removeAllElements();
+	}
 	
 	public void refrescarLista(Jugador nodo) {
 //		model.removeAllElements();
@@ -141,6 +151,21 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 				JOptionPane.showMessageDialog( this, "El juagdor: " + e1.getJugadorNoEncontrado() + " no ha sido encontrado "," ERROR... ",JOptionPane.ERROR_MESSAGE );
 			}
 		}
+		else if (ELIMINAR.equals(e.getActionCommand())) {
+			try {
+
+				String nickName = JOptionPane.showInputDialog("Ingrese el nombre del jugador que desea Eliminar: ");
+				Jugador encontrado = dialogo.getPrincipal().getPartida().buscarJugador(nickName);
+				dialogo.getPrincipal().getPartida().eliminar(encontrado);
+//				limpiarLista();
+				model.removeAllElements();
+				refrescarLista(dialogo.getPrincipal().getPartida().getRaiz());
+				
+			}catch (JugadorNoEncontradoException e1) {
+				JOptionPane.showMessageDialog( this, "El juagdor: " + e1.getJugadorNoEncontrado() + " no ha sido encontrado "," ERROR... ",JOptionPane.ERROR_MESSAGE );
+			}	
+		}
+		
 		
 		
 	}

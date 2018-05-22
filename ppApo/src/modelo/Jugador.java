@@ -116,10 +116,10 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 
 	public Jugador buscar(String nickName) throws JugadorNoEncontradoException {
 		
-		if( nickname.compareTo(nickName) == 0)  {
+		if( nickname.compareToIgnoreCase(nickName) == 0)  {
 			return this;
 		}
-		else if (nickName.compareTo(nickName) < 0 ) {
+		else if (nickName.compareToIgnoreCase(nickName) < 0 ) {
 			if(izquierda == null)
 				throw new JugadorNoEncontradoException(nickName);
 			else
@@ -130,14 +130,12 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 				throw new JugadorNoEncontradoException(nickName);
 			else
 				return derecha.buscar(nickName);
-
 	}	
 
 	public Jugador eliminar(Jugador eliminar) {
 		if(izquierda == null && derecha == null) {
 			return null;
-		}
-		
+		}	
 		if(this.compareTo(eliminar) == 0) {
 			if(izquierda == null)
 				return derecha;
@@ -157,6 +155,28 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 			derecha = derecha.eliminar(eliminar);
 		return this;
 	}
+	
+//	public boolean validarExistente(String nickName) {
+//
+//		if( nickname.compareTo(nickName) == 0)  {
+//			return true;
+//		}
+//		else if (nickName.compareTo(nickName) < 0 ) {
+//			if(izquierda == null)
+//				return false;
+//			else
+//				return izquierda.validarExistente(nickName);
+//		}
+//		else {
+//			if(derecha == null)
+//				return false ;
+//			else
+//				return derecha.validarExistente(nickName);
+//		}
+//		
+//	}
+	
+	
 	
 	public String toString() {
 		return this.getNickname() + "\n" + 

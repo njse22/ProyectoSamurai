@@ -87,20 +87,55 @@ public class Partida {
 	
 	
 	public void agregar(String nickName) {
-		Jugador nuevo = new Jugador (nickName, 0, "");
-		if (raiz == null)
-			raiz = nuevo;
+		
+		if (!existe(nickName)) {
+			Jugador nuevo = new Jugador (nickName, 0, "");
+			if (raiz == null)
+				raiz = nuevo;
+			else {
+				raiz.agregarJugador(nuevo);
+			} 	
+		}
 		else {
-			raiz.agregarJugador(nuevo);
-		} 	
-			
+			//sin saber que hacer en esta parte ... si el jugador existe lo logico seria 
+			//cambiar sus atributos a los que tenia antes de iniciar una nueva partida.
+		}
+	
 	}
 
+	
+	public boolean existe(String nickName) {
+		boolean existe = false ;
+		
+		try {
+			if (buscarJugador(nickName) != null) {
+				existe = true;
+			}
+		}catch (JugadorNoEncontradoException e) {
+			e.getMessage();
+		}
+		if (existe) {
+			System.out.println("el personaje existe...");
+		}
+		
+		return existe;
+		
+	}
+	
+	
+//	public boolean validarExistente(String nickName) {
+//		
+//		if(raiz == null) 
+//			return false;
+//		else 
+//			return raiz.validarExistente(nickName);
+//		
+//	}
 	
 	public Jugador buscarJugador(String nickName) throws JugadorNoEncontradoException{
 		
 		if(raiz == null)
-			return null;
+			throw new JugadorNoEncontradoException(nickName);
 		else
 			return raiz.buscar(nickName);
 		
