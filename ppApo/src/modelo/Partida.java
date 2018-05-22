@@ -114,9 +114,9 @@ public class Partida {
 		}catch (JugadorNoEncontradoException e) {
 			e.getMessage();
 		}
-		if (existe) {
-			System.out.println("el personaje existe...");
-		}
+//		if (existe) {
+//			System.out.println("el personaje existe...");
+//		}
 		
 		return existe;
 		
@@ -133,7 +133,6 @@ public class Partida {
 //	}
 	
 	public Jugador buscarJugador(String nickName) throws JugadorNoEncontradoException{
-		
 		if(raiz == null)
 			throw new JugadorNoEncontradoException(nickName);
 		else
@@ -146,7 +145,6 @@ public class Partida {
 	}
 	
 	public void inOrden(Jugador nodo) {
-
 		if(nodo != null) {
 			inOrden(nodo.getIzquierda());
 			System.out.println(nodo.getNickname());
