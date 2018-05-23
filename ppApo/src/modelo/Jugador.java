@@ -23,7 +23,9 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 	 * */
 	private String idPersonajeAsociado; 
 	
-	
+	/*
+	 * derecha : valor mayor en el arbol,
+	 * */
 	private Jugador derecha;
 	private Jugador izquierda;
 	
