@@ -27,6 +27,9 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 	 * derecha : valor mayor en el arbol,
 	 * */
 	private Jugador derecha;
+	/**
+	 * izquierda:   jjj
+	 * */
 	private Jugador izquierda;
 	
 //	private Jugador padre;
