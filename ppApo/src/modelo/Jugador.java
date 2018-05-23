@@ -179,8 +179,8 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 	
 	
 	public String toString() {
-		return this.getNickname() + "\n" + 
-			   this.getPuntaje () ;
+		return "nombre: "+ this.getNickname() + "\n" + 
+			   "puntage: "+ this.getPuntaje () ;
 	}
 	
 	
