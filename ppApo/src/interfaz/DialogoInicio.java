@@ -17,9 +17,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.text.Style;
 
+import excepciones.JugadorExistenteException;
+import excepciones.JugadorNoEncontradoException;
+
 public class DialogoInicio extends JDialog  implements ActionListener{
 
-	public final static String MOSTRAR_LISTA_JUGADORES = "JUGADORES" /*,  AGREGAR_NUEVO_JUGADOR = "AGREGAR"*/; 
+	public final static String MOSTRAR_LISTA_JUGADORES = "JUGADORES"; 
 	public final static String COMENZAR = "COMENZAR";
 	
 	
@@ -129,6 +132,12 @@ public class DialogoInicio extends JDialog  implements ActionListener{
 				
 			}catch (IOException e1) {
 				// TODO: handle exception
+			} catch (JugadorNoEncontradoException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (JugadorExistenteException e1) {
+				
+				e1.printStackTrace();
 			}
 		}
 		
@@ -136,11 +145,6 @@ public class DialogoInicio extends JDialog  implements ActionListener{
 			panelJugador.setVisible(true);
 			panelJugador.refrescarLista(principal.getPartida().getRaiz());
 			dispose();
-//			if (contadorDeAperturas > 0) {
-//				panelJugador.getModel().removeAllElements();
-//			}
-//			contadorDeAperturas++;	
-			
 		}	
 		
 		

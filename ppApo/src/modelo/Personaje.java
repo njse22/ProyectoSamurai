@@ -117,50 +117,32 @@ public class Personaje  {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
+	/**
+	 *  moverEnX(int deltaX, int deltaXdx) : este método cambia la posicion en X del personaje 
+	 *  @param deltaX : int con la posicion actual del personaje.
+	 *  @param deltaXdx : int - con la posicion a la cual se movera el personaje
+	 *  @return la nuevaposición del personaje.
+	 * */
 	public int moverEnX(int deltaX, int deltaXdx) {
 		setPosX(deltaX += deltaXdx);
 		return getPosX();
 	}
 
+	/**
+	 * moverEnY(int deltaY, int deltaYdx) : mover persoanje en Y 
+	 * @param deltaY : int - representa la posición actual del personaje 
+	 * @param deltaYdx : int -representa la posicion a donde tiene que ir el personaje 
+	 * @return la nueva posicion del personaje 
+	 * */
 	public int moverEnY(int deltaY, int deltaYdx) {
 		setPosY(deltaY += deltaYdx);
 		int y = getPosY();
-		
-		
 		if (y == -3) {
 			setPosY(deltaY);
 		}
-		
-		
-//		boolean bajo = false;
-//		controlSalto++;
-//		if (controlSalto == 30) {
-//			while(!bajo) {
-//				setPosY(deltaY -= deltaYdx);
-//				controlSalto--;
-//				if(controlSalto == 1) {
-//					bajo = true;
-//				}
-//			}
-//		}
-	
 		return getPosY();
 	}
-
-//	private int vajar(int deltaY, int deltaYdx) {
-//		setPosY(deltaY -= deltaYdx);
-//		return getPosY();	
-//	}
-	
-	
-	//	public int saltar(int deltaY, int deltaYdx) {
-//		setPosY(deltaY += deltaYdx);
-//		if(getPosY() == 100)
-//			setPosY(0);
-//		
-//		return getPosY();	
-//	}
 	
 	
 }

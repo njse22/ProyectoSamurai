@@ -2,6 +2,8 @@ package modelo;
 
 import java.io.Serializable;
 
+import org.junit.platform.commons.util.ToStringBuilder;
+
 import excepciones.JugadorNoEncontradoException;
 
 /**
@@ -19,21 +21,18 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 	 * */
 	private long puntaje;
 	/**
-	 * define si el jugador escojio el pirmer o segundo personaje.
+	 * define si el jugador le corresponde el pirmer o segundo personaje.
 	 * */
 	private String idPersonajeAsociado; 
 	
-	/*
-	 * derecha : valor mayor en el arbol,
+	/**
+	 * derecha: representa a un jugador que es mayor que la raiz.
 	 * */
 	private Jugador derecha;
 	/**
-	 * izquierda:   jjj
+	 * izquierda: representa a un jugador que es menor que la raiz.
 	 * */
 	private Jugador izquierda;
-	
-//	private Jugador padre;
-	
 	
 	/**
 	 * constructor de la clase inicializa los atributos del jugador. 
@@ -84,11 +83,23 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 		this.izquierda = izquierda;
 	}
 
+	/**
+	 * compareTo(Jugador jugador): método implementado de la interfaz Compareble
+	 * compara dos jugadores y dice quien es "mayor" a travez del criterio lexico
+	 * @param jugador : Jugador que llega por parametro y sera comparado con aquel que llama al método
+	 * @return 0 = si los jugadores son iguales 
+	 * 		  -1 = si el jugador que llega por parametro es mayor 
+	 * 		   1 = si el jugador que llega por parametro es menor.
+	 * */
 	@Override
 	public int compareTo(Jugador jugador) {
 		return nickname.compareToIgnoreCase(jugador.getNickname());
 	}
 
+	/**
+	 * darMayor() : retorna al mayor de los jugadores del arbol.
+	 * @return el mayor jugador del arbol.
+	 * */
 	public Jugador darMayor() {
 		if(derecha == null)
 			return this;
@@ -97,6 +108,10 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 		
 	}
 	
+	/**
+	 * darMenor() : retorna al menor de los jugadores del arbol.
+	 * @return el monor jugador del arbol.
+	 * */
 	public Jugador darMenor() {
 		if(izquierda == null)
 			return this;
@@ -104,7 +119,11 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 			return izquierda.darMenor();
 	}
 	
-	
+	/**
+	 * agregarJugador(Jugador nuevo):void = agrega un  nuevo jugador al ABB segun el 
+	 * criterio de ordenamiento
+	 * @param nuevo : Jugador
+	 * */
 	public void agregarJugador(Jugador nuevo) {
 		if(this.compareTo(nuevo) > 0) {
 			if(izquierda == null)
@@ -119,6 +138,14 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 				derecha.agregarJugador(nuevo); 
 		}
 
+	/**
+	 * buscar(String nickName) : Jugador  
+	 * busca y retorna al jugador a travez de su nnombre 
+	 * @param nickName : String - nombre del jugador pasado por parametro 
+	 * @return el jugador que se esta buscdando 
+	 * @throws JugadorNoEncontradoException : se lanza esta excepcion cuando el jugador 
+	 * que se esta buscando no existe 
+	 * */
 	public Jugador buscar(String nickName) throws JugadorNoEncontradoException {
 		
 		if( nickname.compareToIgnoreCase(nickName) == 0)  {
@@ -136,7 +163,10 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 			else
 				return derecha.buscar(nickName);
 	}	
-
+	
+	/**
+	 * eliminar(Jugador eliminar) : Jugador 
+	 * */
 	public Jugador eliminar(Jugador eliminar) {
 		if(izquierda == null && derecha == null) {
 			return null;
@@ -161,28 +191,11 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 		return this;
 	}
 	
-//	public boolean validarExistente(String nickName) {
-//
-//		if( nickname.compareTo(nickName) == 0)  {
-//			return true;
-//		}
-//		else if (nickName.compareTo(nickName) < 0 ) {
-//			if(izquierda == null)
-//				return false;
-//			else
-//				return izquierda.validarExistente(nickName);
-//		}
-//		else {
-//			if(derecha == null)
-//				return false ;
-//			else
-//				return derecha.validarExistente(nickName);
-//		}
-//		
-//	}
-	
-	
-	
+	/**
+	 * toString : String metodo sobreescrito de la clase Odject  
+	 * @return String con la infomacion basica del jugador
+	 * */
+	@Override
 	public String toString() {
 		return "nombre: "+ this.getNickname() + "\n" + 
 			   "puntage: "+ this.getPuntaje () ;
