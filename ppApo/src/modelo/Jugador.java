@@ -84,9 +84,9 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 	}
 
 	/**
-	 * compareTo(Jugador jugador): método implementado de la interfaz Compareble
+	 * compareTo(Jugador jugador): mï¿½todo implementado de la interfaz Compareble
 	 * compara dos jugadores y dice quien es "mayor" a travez del criterio lexico
-	 * @param jugador : Jugador que llega por parametro y sera comparado con aquel que llama al método
+	 * @param jugador : Jugador que llega por parametro y sera comparado con aquel que llama al mï¿½todo
 	 * @return 0 = si los jugadores son iguales 
 	 * 		  -1 = si el jugador que llega por parametro es mayor 
 	 * 		   1 = si el jugador que llega por parametro es menor.
@@ -204,4 +204,3 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 	
 	
 }
-
