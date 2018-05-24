@@ -20,7 +20,7 @@ class TestPartida {
 			partida.agregar("jugador1");
 			partida.agregar("jugador0");	
 		}catch (Exception e) {
-			fail("la prueba falló");
+			fail("la prueba fallï¿½");
 		}
 	}
 	
@@ -32,7 +32,7 @@ class TestPartida {
 			partida.agregar("jugador0");
 			partida.agregar("jugador5");
 		}catch (Exception e) {
-			fail("la prueba falló");
+			fail("la prueba fallï¿½");
 		}
 		
 	}
@@ -52,7 +52,7 @@ class TestPartida {
 			partida.agregar("jugador4");
 		
 		} catch (Exception e) {
-			fail("la prueba falló");
+			fail("la prueba fallï¿½");
 		}
 
 	}
@@ -137,7 +137,7 @@ class TestPartida {
 		try {
 			partida.agregar("jugadorExistente");
 		} catch (Exception e) {
-			// si esta asserción se cumple entonces la prueba fue exitosa.
+			// si esta asserciï¿½n se cumple entonces la prueba fue exitosa.
 			assertTrue(true);
 		}
 		
@@ -164,7 +164,7 @@ class TestPartida {
 			partida.agregar("jugador4");
 		
 		} catch (Exception e) {
-			fail("la prueba falló");
+			fail("la prueba fallï¿½");
 		}
 		
 		

@@ -37,7 +37,7 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 	private JButton btnEliminar;
 	
 	private DefaultListModel<String> model;
-	private JList listaJugadores;
+	private JList<String> listaJugadores;
 	private JScrollPane scroll; 
 	
 	private JPanel panelLista;
@@ -59,7 +59,7 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 		btnEliminar = new JButton("ELIMINAR");
 		
 		model = new DefaultListModel<String>();
-		listaJugadores = new JList(model);
+		listaJugadores = new JList<>(model);
 		scroll = new JScrollPane(listaJugadores);
 		
 		btnOrdenar.setActionCommand(ORDENAR);
@@ -128,6 +128,10 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 			JOptionPane.showMessageDialog( this, e.getMessage() ," ERROR... al cargar la lista ",JOptionPane.ERROR_MESSAGE );
 		}
 
+	}
+	
+	public void removeAllElementsOfModel() {
+		model.removeAllElements();
 	}
 	
 	@Override

@@ -41,7 +41,7 @@ public class DialogoInicio extends JDialog  implements ActionListener{
 		this.principal = principal;
 	
 		panelJugador = new DialogListaJugadores(this);
-		
+		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 		contadorDeAperturas = 0;
 				
 		setSize(608, 400);
@@ -81,7 +81,7 @@ public class DialogoInicio extends JDialog  implements ActionListener{
 		btnComenzar.setActionCommand(COMENZAR); 
 		btnComenzar.addActionListener(this); 
 		
-		btnListJugodor = new JButton("Mostrat Lista De jugadores");
+		btnListJugodor = new JButton("Mostrar Lista De Jugadores");
 		btnListJugodor.setActionCommand(MOSTRAR_LISTA_JUGADORES); 
 		btnListJugodor.addActionListener(this); 
 		
@@ -143,6 +143,7 @@ public class DialogoInicio extends JDialog  implements ActionListener{
 		
 		else if (MOSTRAR_LISTA_JUGADORES.equals(e.getActionCommand())) {	
 			panelJugador.setVisible(true);
+			panelJugador.removeAllElementsOfModel();
 			panelJugador.refrescarLista(principal.getPartida().getRaiz());
 			dispose();
 		}	
