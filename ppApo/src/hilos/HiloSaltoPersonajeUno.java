@@ -1,11 +1,11 @@
 package hilos;
 
-import interfaz.Principal;
+import interfaz.DialogoJuego;
 import modelo.Personaje;
 
 public class HiloSaltoPersonajeUno extends Thread{
 
-	private Principal principal;
+	private DialogoJuego principal;
 	private Personaje personaje;
 
 	private boolean mover = true;
@@ -13,7 +13,7 @@ public class HiloSaltoPersonajeUno extends Thread{
 	private int total;
 
 	
-	public HiloSaltoPersonajeUno(Principal principal, Personaje personaje)
+	public HiloSaltoPersonajeUno(DialogoJuego principal, Personaje personaje)
 	{
 		this.principal=principal;
 		this.personaje = personaje;

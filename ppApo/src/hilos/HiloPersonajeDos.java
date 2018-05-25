@@ -1,19 +1,17 @@
 package hilos;
 
-import javax.swing.ImageIcon;
-
-import interfaz.Principal;
+import interfaz.DialogoJuego;
 
 public class HiloPersonajeDos extends Thread{
 
 
 	
-	private Principal principal;
+	private DialogoJuego principal;
 
 	private boolean mover = true;
 	
 	
-	public HiloPersonajeDos(Principal principal) {
+	public HiloPersonajeDos(DialogoJuego principal) {
 		this.principal = principal;
 		
 	}

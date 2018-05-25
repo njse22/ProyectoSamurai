@@ -42,9 +42,9 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 	
 	private JPanel panelLista;
 	
-	private DialogoInicio dialogo;
+	private Principal dialogo;
 
-	public DialogListaJugadores(DialogoInicio dialogo) {
+	public DialogListaJugadores(Principal dialogo) {
 		this.dialogo = dialogo;
 		
 		panelLista = new JPanel();

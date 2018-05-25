@@ -40,7 +40,7 @@ public class Animacion implements ActionListener {
 	 * */
 	private Map<String, Point> pressedKeys = new HashMap<String, Point>();
 	 
-	private Principal principal;
+	private DialogoJuego principal;
 	
 	private String keyControl;
 	
@@ -50,7 +50,7 @@ public class Animacion implements ActionListener {
 	 * @param delay : int - un int que sirve para inicializar el Timer
 	 * @param  
 	 * */
-	public Animacion (JComponent component, int delay,Principal principal )
+	public Animacion (JComponent component, int delay,DialogoJuego principal )
 	{
 		this.component = component;
 		timer = new Timer(24,this);
@@ -59,7 +59,7 @@ public class Animacion implements ActionListener {
 		 
 	}
 
-	public Principal getPrincipal() {
+	public DialogoJuego getPrincipal() {
 		return principal;
 	}
 		
