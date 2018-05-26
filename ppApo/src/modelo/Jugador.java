@@ -184,6 +184,8 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 	
 	/**
 	 * eliminar(Jugador eliminar) : Jugador 
+	 * elimina un jugador del ABB de jugadores 
+	 * @param eliminar : Jugador - el jugador a eliminar de la estructura
 	 * */
 	public Jugador eliminar(Jugador eliminar) {
 		if(izquierda == null && derecha == null) {
