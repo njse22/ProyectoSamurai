@@ -124,18 +124,34 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 	 * criterio de ordenamiento
 	 * @param nuevo : Jugador
 	 * */
-	public void agregarJugador(Jugador nuevo) {
+	public boolean agregarJugador(Jugador nuevo) {
 		if(this.compareTo(nuevo) > 0) {
-			if(izquierda == null)
+			if(izquierda == null) {
 				izquierda = nuevo;
-			else
+				//rotacionIzquierda(izquierda);
+				return true;
+			}
+				
+			else {
 				izquierda.agregarJugador(nuevo);
+//				rotacionDobleIzquierda(izquierda);
+				return false;
+			}
+				
 		}
 		else
-			if(derecha == null) 
+			if(derecha == null) {
 				derecha = nuevo;
-			else 
-				derecha.agregarJugador(nuevo); 
+//				rotacionDerecha(derecha);
+				return true;
+			} 
+				
+			else {
+				derecha.agregarJugador(nuevo);
+//				rotacionDobleDerecha(derecha);
+				return false ;
+			}
+				 
 		}
 
 	/**
@@ -157,11 +173,13 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 			else
 				return izquierda.buscar(nickName);
 		}
-		else 
+		else {
 			if(derecha == null)
 				throw new JugadorNoEncontradoException(nickName);
 			else
 				return derecha.buscar(nickName);
+		}
+		
 	}	
 	
 	/**
@@ -191,6 +209,28 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 		return this;
 	}
 	
+	
+	public int calcularAltura() {
+		
+			if ( derecha == null && izquierda == null )
+			return 1;
+			else {
+				int a1 ;
+				int a2 ;
+				if ( izquierda == null )
+					a1 = 0 ;
+				else
+					a1 = izquierda.calcularAltura() ;
+				if ( derecha == null)
+					a2 = 0 ;
+				else
+					a2 = derecha.calcularAltura();
+				return 1 + Math . max ( a1 , a2 ) ;
+			}
+	}
+	
+	
+	
 	/**
 	 * toString : String metodo sobreescrito de la clase Odject  
 	 * @return String con la infomacion basica del jugador
@@ -200,6 +240,54 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 		return "nombre: "+ this.getNickname() + "\n" + 
 			   "puntage: "+ this.getPuntaje () ;
 	}
+	
+	//*************************************************************************************
+	
+		/* METODOS PARA VALANCEAR UN ABB (HAY QUE MOVERLOS A LA CLASE JUGADOR HE INSERTARLOS 
+		 * EN LOS METODOS DE AGREGAR SEGUN SEA EL CASO CORRESPONDIENTE ... REVISAR EL LIBRO 
+		 * ESTRUCTURAS DE DATOS ARBOLES AVL CAPITULO 19.4 EN LA PAGINA 730 DEL PDF )
+		 * */
+		
+		// caso 1 del valanseo 
+		public Jugador rotacionIzquierda(Jugador j2 ) {
+			
+			Jugador j1 = j2.getIzquierda();
+			
+			j2.setIzquierda(j1.getDerecha());
+			j1.setDerecha(j2);
+			
+			return j1;
+		}
+		
+
+		public Jugador rotacionDerecha(Jugador j1) {
+			
+			Jugador j2 = j1.getDerecha();
+			
+			j1.setDerecha(j2.getIzquierda());
+			j2.setIzquierda(j1);
+			return j2;
+			
+		}
+		
+		
+		//caso 3 del valanseo
+		public Jugador rotacionDobleDerecha(Jugador j3) {
+			
+			j3.setDerecha(rotacionDerecha(j3.getDerecha()));
+			return rotacionDerecha(j3); 
+			
+		}
+		
+		
+		
+		public Jugador rotacionDobleIzquierda(Jugador j3) {
+			
+			j3.setIzquierda(rotacionIzquierda(j3.getIzquierda()));
+			
+			return rotacionIzquierda(j3);  
+		}
+		
 	
 	
 	

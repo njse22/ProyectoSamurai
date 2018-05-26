@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import excepciones.JugadorExistenteException;
@@ -32,15 +33,26 @@ public class Partida {
 	 * raiz : Jugador, atributo que represneta a la raiz del ABB de jugadores
 	 * */
 	private Jugador raiz;
+	
+	
+	private int numJugadores ;
 	 
 	/**
 	 * constructor de la clase inicializa una partida.
 	 * */
 	public Partida() {
-		
+		this.numJugadores = 0;
 		this.primero = new Personaje(1000, true, 80 , 220, 50, 50, Personaje.PRIMER_PERSONAJE);
 		this.ultimo  = new Personaje(1000, true, 600, 220, 50, 50, Personaje.SEGUNDO_PERSONAJE);
  
+	}
+
+	public int getNumJugadores() {
+		return numJugadores;
+	}
+
+	public void setNumJugadores(int numJugadores) {
+		this.numJugadores = numJugadores;
 	}
 
 	public Personaje getPrimero() {
@@ -101,10 +113,14 @@ public class Partida {
 		
 		if (!existe(nickName)) {
 			Jugador nuevo = new Jugador (nickName, 0, "");
-			if (raiz == null)
+			if (raiz == null) {
 				raiz = nuevo;
+				numJugadores++;
+			}
+				
 			else {
-				raiz.agregarJugador(nuevo);
+				if( raiz.agregarJugador(nuevo) )
+					numJugadores++;
 			} 	
 		}// fin del if 
 		else {
@@ -165,6 +181,110 @@ public class Partida {
 		return raiz.eliminar(eliminar);
 	}
  
+	public ArrayList<String> crearListaMejoresPuntajes(ArrayList<Jugador> aOrdenar){
+		
+		ArrayList<String> mejoresPuntajes = new ArrayList<String>(); 
+		Jugador auxPrimero = raiz;
+		
+		
+		while(auxPrimero != null) {
+			
+			if ( true ) {
+				
+			}
+			
+//			mejoresPuntajes.add();
+			
+			
+		}
+		
+		
+		
+		return null; 
+	}
+
+	//*************************************************************************************
+	
+	/* METODOS PARA VALANCEAR UN ABB (HAY QUE MOVERLOS A LA CLASE JUGADOR HE INSERTARLOS 
+	 * EN LOS METODOS DE AGREGAR SEGUN SEA EL CASO CORRESPONDIENTE ... REVISAR EL LIBRO 
+	 * ESTRUCTURAS DE DATOS ARBOLES AVL CAPITULO 19.4 EN LA PAGINA 730 DEL PDF )
+	 * */
+	
+	// caso 1 del valanseo 
+	public Jugador rotacionIzquierda(Jugador j2 ) {
+		
+		Jugador j1 = j2.getIzquierda();
+		
+		j2.setIzquierda(j1.getDerecha());
+		j1.setDerecha(j2);
+		
+		return j1;
+	}
+	
+
+	public Jugador rotacionDerecha(Jugador j1) {
+		
+		Jugador j2 = j1.getDerecha();
+		
+		j1.setDerecha(j2.getIzquierda());
+		j2.setIzquierda(j1);
+		return j2;
+		
+	}
+	
+	
+	//caso 3 del valanseo
+	public Jugador rotacionDobleDerecha(Jugador j3) {
+		
+		j3.setDerecha(rotacionDerecha(j3.getDerecha()));
+		return rotacionDerecha(j3); 
+		
+	}
+	
+	
+	
+	public Jugador rotacionDobleIzquierda(Jugador j3) {
+		
+		j3.setIzquierda(rotacionIzquierda(j3.getIzquierda()));
+		
+		return rotacionIzquierda(j3);  
+	}
+	
+	
+	public int calcularAltura() {
+		if (raiz == null) {
+			return 0;
+		}
+		else 
+			return raiz.calcularAltura();
+		
+	}
+	
+	//************************************************************************************
+	
+	public ArrayList<Jugador> inOrden(Jugador nodo){
+		
+		ArrayList<Jugador> jugadoresInorden = new ArrayList<Jugador>(); 
+		
+		Jugador auxPrimero = nodo; 
+		jugadoresInorden.add(auxPrimero);
+		
+		for (int i = 0; i < 9 && auxPrimero != null ; i++) {
+			
+			if (auxPrimero.getIzquierda() != null)
+				auxPrimero = auxPrimero.getIzquierda();
+			
+			jugadoresInorden.add(auxPrimero);
+			
+			if(auxPrimero.getDerecha() != null)
+				auxPrimero = auxPrimero.getDerecha(); 
+			
+		}
+		
+		return jugadoresInorden; 
+	}
+	
+	
 	/**
 	 * serializarArchivos() : void
 	 * este metodo serializa a los jugadores 

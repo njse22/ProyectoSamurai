@@ -2,8 +2,13 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
+import excepciones.JugadorExistenteException;
+import excepciones.JugadorNoEncontradoException;
+import modelo.Jugador;
 import modelo.Partida;
 
 class TestPartida {
@@ -20,7 +25,7 @@ class TestPartida {
 			partida.agregar("jugador1");
 			partida.agregar("jugador0");	
 		}catch (Exception e) {
-			fail("la prueba fall�");
+			fail("la prueba fallo");
 		}
 	}
 	
@@ -32,7 +37,7 @@ class TestPartida {
 			partida.agregar("jugador0");
 			partida.agregar("jugador5");
 		}catch (Exception e) {
-			fail("la prueba fall�");
+			fail("la prueba fallo");
 		}
 		
 	}
@@ -52,7 +57,7 @@ class TestPartida {
 			partida.agregar("jugador4");
 		
 		} catch (Exception e) {
-			fail("la prueba fall�");
+			fail("la prueba fallo");
 		}
 
 	}
@@ -164,14 +169,42 @@ class TestPartida {
 			partida.agregar("jugador4");
 		
 		} catch (Exception e) {
-			fail("la prueba fall�");
+			fail("la prueba fallo");
 		}
-		
-		
-		
-		assertTrue( partida.existe("jugador7") );
+	
+		assertTrue( partida.existe("jugador0") );
 		
 	}
+	
+	@Test
+	void testInOrden() {
+		partida = new Partida();
+		try {
+			partida.agregar("jugador9");
+			partida.agregar("jugador8");
+			partida.agregar("jugador15");
+			partida.agregar("jugador7");
+			partida.agregar("jugador13");
+			partida.agregar("jugador12");
+			partida.agregar("jugador16");
+			partida.agregar("jugador18");
+			partida.agregar("jugador6");
+			
+			
+			ArrayList<Jugador> arreglo = partida.inOrden(partida.getRaiz()) ; 
+			
+			for (int i = 0; i < arreglo.size()-1 ; i++) {
+				System.out.println(arreglo.get(i).getNickname());	
+			}
+			
+		} catch (JugadorNoEncontradoException e) {
+			fail("la prueba fallo");
+		} catch( JugadorExistenteException e) {
+			fail("la prueba fallo");
+		}
+	
+	}
+	
 	
 	
 	

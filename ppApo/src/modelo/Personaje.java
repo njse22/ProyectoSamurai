@@ -119,10 +119,10 @@ public class Personaje  {
 	}
 
 	/**
-	 *  moverEnX(int deltaX, int deltaXdx) : este método cambia la posicion en X del personaje 
+	 *  moverEnX(int deltaX, int deltaXdx) : este mï¿½todo cambia la posicion en X del personaje 
 	 *  @param deltaX : int con la posicion actual del personaje.
 	 *  @param deltaXdx : int - con la posicion a la cual se movera el personaje
-	 *  @return la nuevaposición del personaje.
+	 *  @return la nuevaposiciï¿½n del personaje.
 	 * */
 	public int moverEnX(int deltaX, int deltaXdx) {
 		setPosX(deltaX += deltaXdx);
@@ -131,7 +131,7 @@ public class Personaje  {
 
 	/**
 	 * moverEnY(int deltaY, int deltaYdx) : mover persoanje en Y 
-	 * @param deltaY : int - representa la posición actual del personaje 
+	 * @param deltaY : int - representa la posiciï¿½n actual del personaje 
 	 * @param deltaYdx : int -representa la posicion a donde tiene que ir el personaje 
 	 * @return la nueva posicion del personaje 
 	 * */
