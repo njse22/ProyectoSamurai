@@ -41,7 +41,8 @@ public class Principal extends JFrame  implements ActionListener{
 		this.principal = principal;
 	
 		panelJugador = new DialogListaJugadores(this);
-		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
+		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+//		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 		contadorDeAperturas = 0;
 				
 		setSize(608, 400);
@@ -150,6 +151,24 @@ public class Principal extends JFrame  implements ActionListener{
 		
 		
 		
+	}
+
+	
+	public static void main(String[] args)
+	{
+		
+		DialogoJuego p = new DialogoJuego();
+		
+		Principal comenzar = new Principal(p);
+		
+//		
+		
+
+		
+	
+		
+		comenzar.setVisible(true);
+
 	}
 
 	

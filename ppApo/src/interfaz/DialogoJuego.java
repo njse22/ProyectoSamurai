@@ -22,63 +22,174 @@ import modelo.Jugador;
 import modelo.Partida;
 import modelo.Personaje;
 
+/**
+ * DialogoJuego : representa a la ventana donde se lleva a cabo el juego 
+ * en ella se pintan a los personajes.
+ * */
 public class DialogoJuego extends JDialog {
 	
+	/**
+	 * constante con la altura a la cual se encuentra el "piso" del escenario 
+	 * */
 	public final static int PISO = 200;
 	
+	/**
+	 * partida : Partida - relacion con la ventana principal
+	 * */
 	private Partida partida; 
 
+	/**
+	 * imagen del fondo del juego 
+	 * */
 	private JLabel fondo;
 	
+	/**
+	 * labPersonaje1 : EtiquetaImagen - representa la imagen del primer personaje
+	 * */
 	private EtiquetaImagen labPersonaje1; 
+	/**
+	 * labPersonaje2 : EtiquetaImagen - representa la imagen del segundo personaje 
+	 * */
 	private EtiquetaImagen labPersonaje2;
 	
+	/**
+	 * urlLabel1 : URL - representa la dirccion donde se encuentra la imagen del primer personaje 
+	 * */
 	private URL urlLabel1;
+	
+	/**
+	 * urlLabel2 : URL - representa la direccion donde se encuentra la imagen del segundo personaje
+	 * */
 	private URL urlLabel2;
 	
-	private Animacion animacion1 ; 
+	/**
+	 * animacion1 : Animacion - 
+	 * */
+	private Animacion animacion1;
+	
+	/**
+	 * animacion2 : Animacion -
+	 * */
 	private Animacion animacion2; 
 	
+	/**
+	 * personajeActual :  Personaje  - variable global que ayuda a definir cual es el personaje
+	 * que se esta moviendo actuelamente.
+	 * */
 	private Personaje personajeActual;
+	
+	/**
+	 * p1 : Personaje - variable global que indica si se trata del primer personaje 
+	 * */
 	private Personaje p1;
+	/**
+	 * p2 : Personaje - variable de control que indica si se trata del segundo personaje 
+	 * */
 	private Personaje p2;
-	
+
+	/**
+	 * hilo1 : HiloPersonajeUno - este hilo controla la nimacion de las imagenes de movimiento
+	 * de derecha a izquierda del personaje uno 
+	 * */
 	private HiloPersonajeUno hilo1;
-	private HiloPersonajeDos hilo2;
-	private HiloSaltoPersonajeUno hilo3;
 	
+	/**
+	 * hilo2 : HiloPersonajeDos - este hilo controla la nimacion de las imagenes de movimiento
+	 * de derecha a izquierda del personaje dos 
+	 * */
+	private HiloPersonajeDos hilo2;
+	
+	/***/
+//	private HiloSaltoPersonajeUno hilo3;
+	
+	/**
+	 * estadoKey1 : int - determina si alguna de las teclas asociadas al personage uno esta 
+	 * activada 
+	 * */
 	private int estadoKey1;
+	
+	/**
+	 * estadoKey2 : int - determina si alguna de las teclas asociadas al personage dos esta 
+	 * activada 
+	 * */
 	private int estadoKey2;
 	
 	/**
-	 * variable de control que ayuda a cambiar las imagenes de los personajes. 
+	 * controlImagen2 : int - variable de global que ayuda a cambiar las imagenes del personaje uno. 
 	 * */
 	private int controlImagen1;
-	private int controlImagenAtaqueDerecha1;
-	private int controlImagenAtaqueIzquierda1;
-	private int controlImagenAtaqueDerecha2;
-	private int controlImagenAtaqueIzquierda2;
-	private int controlImagen2;	
-	private int controlImagenSalto;
-	private int controlImagenSaltoBajar;
-		
-	private String[] keys1 = new String[4];
-	private String[] keys2 = new String[4];
 	
+	/**
+	 * controlImagen2 : int -  variable de global que ayuda a cambiar las imagenes del personaje dos.
+	 * */
+	private int controlImagen2;
+	
+	/**
+	 * controlImagenAtaqueDerecha1 : int - variable global que cambia las imagenes de ataque 
+	 * que se dirigen hacia la derecha del personaje uno 
+	 * */
+	private int controlImagenAtaqueDerecha1;
+	
+	/**
+	 * controlImagenAtaqueDerecha1 : int - variable global que cambia las imagenes de ataque 
+	 * que se dirigen hacia la izquierda del personaje uno
+	 * */
+	private int controlImagenAtaqueIzquierda1;
+	
+	/**
+	 * controlImagenAtaqueDerecha2 : int - variable global que cambia las imagenes de ataque 
+	 * que se dirigen hacia la derecha del personaje dos 
+	 * */
+	private int controlImagenAtaqueDerecha2;
+	
+	/**
+	 * controlImagenAtaqueDerecha2 : int - variable global que cambia las imagenes de ataque 
+	 * que se dirigen hacia la izquierda del personaje dos
+	 * */
+	private int controlImagenAtaqueIzquierda2;
+	
+	/**
+	 * 
+	 * */
+//	private int controlImagenSalto;
+//	private int controlImagenSaltoBajar;
+		
+	
+	/**
+	 * keys1 : String[] - arreglo de Strings que representan las teclas asociadas al personaje uno
+	 * */
+	private String[] keys1 ;
+	
+	/**
+	 * keys2 : String[] - arreglo de Strings que representan las teclas asociadas al personaje dos
+	 * */
+	private String[] keys2 ;
+	
+	/**
+	 * keyActual : String - determina cual es la tecla que se esta presionando actualmente
+	 * */
 	private String keyActual;
 	
+	/**
+	 * inicio : Principal - relacion con la clase principal
+	 * */
 	private Principal inicio;
 	
+	/**
+	 * DialogoJuego() : constructor de la clase - inicializ las variables de control de la clase
+	 * y las imagenes de los personajes y el fondo.
+	 * */
 	public DialogoJuego() {
 		super(/*" Samurai Jack .VS. Mad Jack "*/);
 		
 		partida = new Partida(); 
-		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
+		keys1 = new String[4];
+		keys2 = new String[4];
+		
 		Random rdn = new Random();
 		int numFondo = rdn.nextInt(7) + 1;
 		
-	
 		try {
 						
 			ImageIcon f = new ImageIcon("data/escenarios/"+numFondo+".gif");
@@ -101,7 +212,6 @@ public class DialogoJuego extends JDialog {
 		
 		getContentPane().add(labPersonaje2);
         labPersonaje2.setBounds(partida.getUltimo().getPosX(),partida.getUltimo().getPosY(), 51, 106);
-//        labPersonaje2.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
 	
         getContentPane().add(labPersonaje1);
         labPersonaje1.setBounds(partida.getPrimero().getPosX(), partida.getPrimero().getPosY(), 118, 122);
@@ -133,7 +243,6 @@ public class DialogoJuego extends JDialog {
 		return estadoKey2;
 	}
 		
-	
 	public Partida getPartida() {
 		return partida;
 	}
@@ -153,6 +262,7 @@ public class DialogoJuego extends JDialog {
 	}
 	
 	/**
+	 * asignarMovimientos () : void  
 	 * este metodo define los movimientos de los personajes 
 	 * */
 	public void asignarMovimientos () {
@@ -173,6 +283,12 @@ public class DialogoJuego extends JDialog {
 		animacion2.Accion(keysPersonaje2()[3],  0, 0);
 	}
 	
+	/**
+	 * determinarPersonaje(String key) : void 
+	 * el metodo determina que personaje se debe mover de acuerdo 
+	 * a la tecla que tenga asosiada
+	 * @param key : String - la tecla que esta siendo presionada.
+	 * */
 	public void determinarPersonaje(String key)
 	{
 		boolean terminar = false;
@@ -194,6 +310,14 @@ public class DialogoJuego extends JDialog {
 		}
 	}
 	
+	/**
+	 * asignarEstadoKey(int key, String k) : void 
+	 * asigna el estado de la tecla (si esta siendo presionada o no)
+	 * @param key : int -  valor de 1 o 0 que identifica si esta presionada o no
+	 * 					   respectivamente 
+	 * @param k : String - representa la tecla asociada a uno de los dos jugadores
+	 * 					    
+	 * */
 	public void asignarEstadoKey(int key, String k)
 	{
 		determinarPersonaje(k);
@@ -207,6 +331,11 @@ public class DialogoJuego extends JDialog {
 		}
 	}
 
+	/**
+	 * moverX(int deltaX, int deltaXdx) : int 
+	 * llama a los metodos mover de la clase personaje 
+	 *  
+	 * */
 	public int moverX(int deltaX, int deltaXdx) {
 		int mover = 0;
 
@@ -306,38 +435,38 @@ public class DialogoJuego extends JDialog {
 //		
 //	}
 	
-	public void pintarImagenSalto()
-	{
-		try {
-			urlLabel1= new File("data/jackImg/blanco/derecha/"+controlImagenSalto+".png").toURI().toURL();
-			labPersonaje1.setUrl(urlLabel1);
-			
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		controlImagenSalto++; 
-		
-		if (controlImagenSalto > 3) {
-			
-			controlImagenSalto = 1; 
-		}
-	}
-	
-	
-	public void pintarBajada()
-	{
-		try {
-			urlLabel1= new File("data/jackImg/blanco/derecha/"+controlImagenSaltoBajar+".png").toURI().toURL();
-			labPersonaje1.setUrl(urlLabel1);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		controlImagenSalto++; 
-		
-		if (controlImagenSalto > 6) {	
-			controlImagenSalto = 4; 
-		}
-	}
+//	public void pintarImagenSalto()
+//	{
+//		try {
+//			urlLabel1= new File("data/jackImg/blanco/derecha/"+controlImagenSalto+".png").toURI().toURL();
+//			labPersonaje1.setUrl(urlLabel1);
+//			
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		}
+//		controlImagenSalto++; 
+//		
+//		if (controlImagenSalto > 3) {
+//			
+//			controlImagenSalto = 1; 
+//		}
+//	}
+//	
+//	
+//	public void pintarBajada()
+//	{
+//		try {
+//			urlLabel1= new File("data/jackImg/blanco/derecha/"+controlImagenSaltoBajar+".png").toURI().toURL();
+//			labPersonaje1.setUrl(urlLabel1);
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		}
+//		controlImagenSalto++; 
+//		
+//		if (controlImagenSalto > 6) {	
+//			controlImagenSalto = 4; 
+//		}
+//	}
 
 	public void pintarImagen() {
 		
@@ -462,18 +591,7 @@ public class DialogoJuego extends JDialog {
 		}
 	}
 	
-	public static void main(String[] args)
-	{
-		DialogoJuego p = new DialogoJuego();
-		
-
-		Principal comenzar = p.getDialogoInicio();
 	
-		
-		comenzar.setVisible(true);
-
-	}
-
 	
 	
 }

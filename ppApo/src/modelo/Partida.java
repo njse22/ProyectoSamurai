@@ -20,15 +20,6 @@ import excepciones.JugadorNoEncontradoException;
 public class Partida {
 
 	/**
-	 * constante que representa la cantidad de personajes que hay en el arreglo. 
-	 * */
-//	public final static int CANT_PERSONAJES = 2; 
-	
-	/**
-	 * ArrayList donde se encuentran todos los jugadores que ingresen al juego.
-	 * */
-	
-	/**
 	 * primero : Personaje, atributo que representa al primero de la lsita de jugadores  
 	 * */
 	private Personaje primero; 
@@ -101,7 +92,7 @@ public class Partida {
 	/**
 	 * agregar(String nickName) : void 
 	 * agrega un nuevo jugador al ABB de jugadores segun elo criterio de ordenamiento correspondiente 
-	 * valida primero si el jugador exite en caso de que no lanza la Excepción JugadorExistenteException 
+	 * valida primero si el jugador exite en caso de que no lanza la Excepciï¿½n JugadorExistenteException 
 	 * @param nickName : String - representa el nombre del jugador del juagador que se quiere agregar.
 	 * @throws JugadorNoEncontradoException 
 	 * @throws JugadorExistenteException 
@@ -122,9 +113,9 @@ public class Partida {
 				encontrado.setPuntaje(encontrado.getPuntaje());				
 			}catch (JugadorNoEncontradoException e) {
 				e.getMessage();
-			}finally {
-				throw new JugadorExistenteException(nickName);
 			}
+			
+			throw new JugadorExistenteException(nickName);
 
 		}//fin del else
 	
@@ -153,7 +144,7 @@ public class Partida {
 	/**
 	 * buscarJugador(String nickName) : Jugador 
 	 * busca un jugador con su nombre pasado por parametro
-	 * si no es encontrado lanza la excepción  
+	 * si no es encontrado lanza la excepciï¿½n  
 	 * @param nickName : String = nombre del jugador a buscar
 	 * pre: nombre != null , nombre != " "
 	 * @return el jugador que ha sido buscado a traves del nombre

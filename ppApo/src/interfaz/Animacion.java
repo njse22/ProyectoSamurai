@@ -12,10 +12,9 @@ import java.util.Map;
 import javax.swing.*;
 
 /**
- * esta clase ayudara a definir el movimiento de los personajes con las acciones del teclado.
- * 
+ * esta clase "Cambia" la posicion de los personajes a travez de un HashMap (una estructura de 
+ * datos que contiene una "llave" y un objeto asociado al mismo)
  * */
-
 public class Animacion implements ActionListener {
 	
 	/**
@@ -36,10 +35,11 @@ public class Animacion implements ActionListener {
 	/**
 	 * pressedkeys : un HashMap que resive como parametros un String que indica la tecla 
 	 * que lo acciona y un objeto de tipo Poitn que indica hacia que punto del panel debe moverse 
-	 * 
+	 * el personaje
 	 * */
 	private Map<String, Point> pressedKeys = new HashMap<String, Point>();
 	 
+	
 	private DialogoJuego principal;
 	
 	private String keyControl;
@@ -48,7 +48,7 @@ public class Animacion implements ActionListener {
 	 * constructor de la clase 
 	 * @param component : JComponent - un objeto de tipo grafico 
 	 * @param delay : int - un int que sirve para inicializar el Timer
-	 * @param  
+	 * @param principal : DialogoJuego - 
 	 * */
 	public Animacion (JComponent component, int delay,DialogoJuego principal )
 	{
