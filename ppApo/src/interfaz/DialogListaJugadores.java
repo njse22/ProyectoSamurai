@@ -26,18 +26,22 @@ import modelo.Jugador;
 
 public class DialogListaJugadores extends JDialog implements ActionListener{
 
-	public final static String ORDENAR = "ORDENAR";
+	public final static String ORDENAR_POR_NOMBRE = "ORDENAR_POR_NOMBRE";
+	public final static String ORDENAR_POR_PUNTAGE = "ORDENAR_POR_PUNTAGE";
 	public final static String BUSCAR = "BUSCAR";
 	public final static String REGRESAR = "REGRESAR";
 	public final static String ELIMINAR = "ELIMINAR";
 	
-	private JButton btnOrdenar;
+	private JButton btnOrdenarNombre;
+	private JButton btnOrdenarPuntage;
 	private JButton btnBuscar;
 	private JButton btnRegresar;
 	private JButton btnEliminar;
 	
-	private DefaultListModel<String> model;
-	private JList<String> listaJugadores;
+	private DefaultListModel<Jugador> model;
+
+	private JList<Jugador> listaJugadores;
+
 	private JScrollPane scroll; 
 	
 	private JPanel panelLista;
@@ -53,27 +57,31 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 
 		panelLista.setLayout(new GridLayout(2, 1));
 
-		btnOrdenar = new JButton("ORDENAR");
+		btnOrdenarNombre = new JButton("ORDENAR NOMBRE");
+		btnOrdenarPuntage = new JButton("ORDENAR PUNTAGE");
 		btnBuscar = new JButton("BUSCAR");
 		btnRegresar = new JButton("REGRESAR");
 		btnEliminar = new JButton("ELIMINAR");
 		
-		model = new DefaultListModel<String>();
+		model = new DefaultListModel<Jugador>();
 		listaJugadores = new JList<>(model);
 		scroll = new JScrollPane(listaJugadores);
 		
-		btnOrdenar.setActionCommand(ORDENAR);
+		btnOrdenarNombre.setActionCommand(ORDENAR_POR_NOMBRE);
+		btnOrdenarPuntage.setActionCommand(ORDENAR_POR_PUNTAGE);
 		btnBuscar.setActionCommand(BUSCAR);
 		btnRegresar.setActionCommand(REGRESAR);
 		btnEliminar.setActionCommand(ELIMINAR);
 		
-		btnOrdenar.addActionListener(this);
+		btnOrdenarNombre.addActionListener(this);
+		btnOrdenarPuntage.addActionListener(this);
 		btnBuscar.addActionListener(this);
 		btnRegresar.addActionListener(this);
 		btnEliminar.addActionListener(this);
 		
 		JPanel auxpanelOpcion = new JPanel();
-		auxpanelOpcion.add(btnOrdenar);
+		auxpanelOpcion.add(btnOrdenarNombre);
+		auxpanelOpcion.add(btnOrdenarPuntage);
 		auxpanelOpcion.add(btnBuscar);
 		auxpanelOpcion.add(btnRegresar);
 		auxpanelOpcion.add(btnEliminar);
@@ -96,11 +104,11 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 	
 	}
 
-	public DefaultListModel<String> getModel() {
+	public DefaultListModel<Jugador> getModel() {
 		return model;
 	}
 
-	public void setModel(DefaultListModel<String> model) {
+	public void setModel(DefaultListModel<Jugador> model) {
 		this.model = model;
 	}
 	
@@ -109,6 +117,28 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 		model.removeAllElements();
 	}
 	
+	public void refrescarLista() {
+
+		try {
+			if (dialogo.getPrincipal().getPartida().getRaiz() != null)
+				dialogo.getPrincipal().getPartida().inOrden( dialogo.getPrincipal().getPartida().getRaiz() );
+				
+			for (int i = 0; i < dialogo.getPrincipal().getPartida().getMejoresPuntajes().size(); i++) {
+				model.addElement(dialogo.getPrincipal().getPartida().getMejoresPuntajes().get(i));
+			}
+			
+			dialogo.getPrincipal().getPartida().recuperarInformacion();
+			
+		}catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog( this, e.getMessage() ," ERROR... al cargar la lista ",JOptionPane.ERROR_MESSAGE );
+		}catch (IOException e) {
+			JOptionPane.showMessageDialog( this, e.getMessage() ," ERROR... al cargar la lista ",JOptionPane.ERROR_MESSAGE );
+		}catch (Exception e) {
+			JOptionPane.showMessageDialog( this, e.getMessage() ," ERROR... al cargar la lista ",JOptionPane.ERROR_MESSAGE );
+		}	
+	}
+	
+	
 	public void refrescarLista(Jugador nodo) {
 //		model.removeAllElements();
 		try {
@@ -116,7 +146,7 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 
 			if(nodo != null) {
 				refrescarLista(nodo.getIzquierda());
-				model.addElement(nodo.getNickname());
+				model.addElement(nodo);
 				refrescarLista(nodo.getDerecha());
 			}
 		
@@ -163,13 +193,29 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 				dialogo.getPrincipal().getPartida().eliminar(encontrado);
 //				limpiarLista();
 				model.removeAllElements();
-				refrescarLista(dialogo.getPrincipal().getPartida().getRaiz());
+				refrescarLista();
+//				refrescarLista(dialogo.getPrincipal().getPartida().getRaiz());
 				
 			}catch (JugadorNoEncontradoException e1) {
 				JOptionPane.showMessageDialog( this, "El juagdor: " + e1.getJugadorNoEncontrado() + " no ha sido encontrado "," ERROR... ",JOptionPane.ERROR_MESSAGE );
 			}	
 		}
 		
+		else if (ORDENAR_POR_NOMBRE.equals(e.getActionCommand())) {
+			
+			
+			
+			
+		}
+		else if(ORDENAR_POR_PUNTAGE.equals(e.getActionCommand())) {
+			
+			dialogo.getPrincipal().getPartida().ordenarPuntagesPorBurbuja();
+			model.removeAllElements();
+			refrescarLista();
+			
+			
+			
+		} 
 		
 		
 	}

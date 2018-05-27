@@ -36,12 +36,15 @@ public class Partida {
 	
 	
 	private int numJugadores ;
+	
+	private ArrayList<Jugador> mejoresPuntajes ;
 	 
 	/**
 	 * constructor de la clase inicializa una partida.
 	 * */
 	public Partida() {
 		this.numJugadores = 0;
+		this. mejoresPuntajes = new ArrayList<Jugador>();
 		this.primero = new Personaje(1000, true, 80 , 220, 50, 50, Personaje.PRIMER_PERSONAJE);
 		this.ultimo  = new Personaje(1000, true, 600, 220, 50, 50, Personaje.SEGUNDO_PERSONAJE);
  
@@ -77,6 +80,11 @@ public class Partida {
 
 	public void setraiz(Jugador raiz) {
 		this.raiz = raiz;
+	}
+	
+
+	public ArrayList<Jugador> getMejoresPuntajes() {
+		return mejoresPuntajes;
 	}
 	
 	/**
@@ -181,108 +189,101 @@ public class Partida {
 		return raiz.eliminar(eliminar);
 	}
  
-	public ArrayList<String> crearListaMejoresPuntajes(ArrayList<Jugador> aOrdenar){
+	
+	public void inOrden(Jugador nodo) {
 		
-		ArrayList<String> mejoresPuntajes = new ArrayList<String>(); 
-		Jugador auxPrimero = raiz;
+		if(nodo.getDerecha() != null)
+			inOrden(nodo.getDerecha());
+		mejoresPuntajes.add(nodo);
+		if(nodo.getIzquierda() != null)
+			inOrden(nodo.getIzquierda());
 		
+	}
+	
+	public void ordenarPuntagesPorBurbuja() {
 		
-		while(auxPrimero != null) {
-			
-			if ( true ) {
+		Jugador[] auxArreglo = new Jugador[mejoresPuntajes.size()];
+		
+		for (int i = 0; i < auxArreglo.length; i++) {
+			auxArreglo[i] = mejoresPuntajes.get(i);
+		}
 				
+		for (int i = 1; i < auxArreglo.length; i++) {
+			for (int j = i; j > 0 && 
+				(auxArreglo[j-1].getPuntaje() - (auxArreglo[j].getPuntaje()) > 0 ); j--) {
+				
+				Jugador tem = auxArreglo[j];
+				auxArreglo[j] = auxArreglo[j-1];
+				auxArreglo[j-1] = tem;
 			}
+		}
+		
+		mejoresPuntajes.removeAll(mejoresPuntajes);
+		for (Jugador jugador : auxArreglo) {
+			mejoresPuntajes.add(jugador);
+		}
+	}
+	
+	
+	public void ordenarPuntagesPorSeleccion() {
+		
+		Jugador[] auxArreglo = new Jugador[mejoresPuntajes.size()];
+		
+		for (int i = 0; i < auxArreglo.length; i++) {
+			auxArreglo[i] = mejoresPuntajes.get(i);
+		}
+		
+		for (int i = 0; i < auxArreglo.length-1; i++) {
 			
-//			mejoresPuntajes.add();
+			Jugador menor = auxArreglo[1];
+			int cual = 1;
 			
-			
+			for (int j = i + 1; j < auxArreglo.length; j++) {
+				
+				if(auxArreglo[j].getPuntaje() < menor.getPuntaje()) {
+				
+					menor = auxArreglo[j];
+					cual = j;
+				}
+			}
+			Jugador temp = auxArreglo[i];
+			auxArreglo[i] = menor;
+			auxArreglo[cual] = temp;
 		}
 		
 		
-		
-		return null; 
-	}
 
-	//*************************************************************************************
-	
-	/* METODOS PARA VALANCEAR UN ABB (HAY QUE MOVERLOS A LA CLASE JUGADOR HE INSERTARLOS 
-	 * EN LOS METODOS DE AGREGAR SEGUN SEA EL CASO CORRESPONDIENTE ... REVISAR EL LIBRO 
-	 * ESTRUCTURAS DE DATOS ARBOLES AVL CAPITULO 19.4 EN LA PAGINA 730 DEL PDF )
-	 * */
-	
-	// caso 1 del valanseo 
-	public Jugador rotacionIzquierda(Jugador j2 ) {
-		
-		Jugador j1 = j2.getIzquierda();
-		
-		j2.setIzquierda(j1.getDerecha());
-		j1.setDerecha(j2);
-		
-		return j1;
-	}
-	
-
-	public Jugador rotacionDerecha(Jugador j1) {
-		
-		Jugador j2 = j1.getDerecha();
-		
-		j1.setDerecha(j2.getIzquierda());
-		j2.setIzquierda(j1);
-		return j2;
-		
-	}
-	
-	
-	//caso 3 del valanseo
-	public Jugador rotacionDobleDerecha(Jugador j3) {
-		
-		j3.setDerecha(rotacionDerecha(j3.getDerecha()));
-		return rotacionDerecha(j3); 
-		
-	}
-	
-	
-	
-	public Jugador rotacionDobleIzquierda(Jugador j3) {
-		
-		j3.setIzquierda(rotacionIzquierda(j3.getIzquierda()));
-		
-		return rotacionIzquierda(j3);  
-	}
-	
-	
-	public int calcularAltura() {
-		if (raiz == null) {
-			return 0;
+		mejoresPuntajes.removeAll(mejoresPuntajes);
+		for (Jugador jugador : auxArreglo) {
+			mejoresPuntajes.add(jugador);
 		}
-		else 
-			return raiz.calcularAltura();
-		
 	}
 	
-	//************************************************************************************
-	
-	public ArrayList<Jugador> inOrden(Jugador nodo){
+	public void ordenarPorInsercion() {
 		
-		ArrayList<Jugador> jugadoresInorden = new ArrayList<Jugador>(); 
+		Jugador[] auxArreglo = new Jugador[mejoresPuntajes.size()];
 		
-		Jugador auxPrimero = nodo; 
-		jugadoresInorden.add(auxPrimero);
-		
-		for (int i = 0; i < 9 && auxPrimero != null ; i++) {
-			
-			if (auxPrimero.getIzquierda() != null)
-				auxPrimero = auxPrimero.getIzquierda();
-			
-			jugadoresInorden.add(auxPrimero);
-			
-			if(auxPrimero.getDerecha() != null)
-				auxPrimero = auxPrimero.getDerecha(); 
-			
+		for (int i = 0; i < auxArreglo.length; i++) {
+			auxArreglo[i] = mejoresPuntajes.get(i);
 		}
 		
-		return jugadoresInorden; 
+		for (int i = 1; i < auxArreglo.length; i++) {
+			
+			for (int j = i; j > 0 && 
+				auxArreglo[j-1].getPuntaje() > auxArreglo[j].getPuntaje() ; j--) {
+		
+				Jugador temp = auxArreglo[j];
+				auxArreglo[j] = auxArreglo[j-1];
+				auxArreglo[j-1] = temp;	
+			}	
+		}
+		mejoresPuntajes.removeAll(mejoresPuntajes);
+		for (Jugador jugador : auxArreglo) {
+			mejoresPuntajes.add(jugador);
+		}
+		
 	}
+	
 	
 	
 	/**
@@ -346,8 +347,69 @@ public class Partida {
 				ois.close();
 			}
 		}
+	}
+	
+//***********************************************************************************************************
+	
+	/* METODOS PARA VALANCEAR UN ABB (HAY QUE MOVERLOS A LA CLASE JUGADOR HE INSERTARLOS 
+	 * EN LOS METODOS DE AGREGAR SEGUN SEA EL CASO CORRESPONDIENTE ... REVISAR EL LIBRO 
+	 * ESTRUCTURAS DE DATOS (MARK ALLEN WEISS) ARBOLES AVL CAPITULO 19.4 EN LA PAGINA 730 DEL PDF ),
+	 * JUNTO CON EL DE LUIS JOYAMES AGUILAR E IGNACION MARTINEZ 
+	 * 
+	 * estos metodos no se han podido implementar ya que no tenemos los cnocimientos suficientes 
+	 * para poder aplicarlos todos
+	 * */
+	
+	// caso 1 del balanseo 
+	private Jugador rotacionIzquierda(Jugador j2 ) {
 		
+		Jugador j1 = j2.getIzquierda();
+		
+		j2.setIzquierda(j1.getDerecha());
+		j1.setDerecha(j2);
+		
+		return j1;
+	}
+	
+	//caso 4
+	private Jugador rotacionDerecha(Jugador j1) {
+		
+		Jugador j2 = j1.getDerecha();
+		
+		j1.setDerecha(j2.getIzquierda());
+		j2.setIzquierda(j1);
+		return j2;
 		
 	}
+	
+	
+	//caso 3 del balanseo
+	private Jugador rotacionDobleDerecha(Jugador j3) {
+		
+		j3.setDerecha(rotacionDerecha(j3.getDerecha()));
+		return rotacionDerecha(j3); 
+		
+	}
+	
+	//caso 4
+	private Jugador rotacionDobleIzquierda(Jugador j3) {
+		
+		j3.setIzquierda(rotacionIzquierda(j3.getIzquierda()));
+		
+		return rotacionIzquierda(j3);  
+	}
+	
+	
+	public int calcularFE() {
+		if (raiz == null) {
+			return 0;
+		}
+		else 
+			return raiz.calcularFE();
+		
+	}
+	
+//***********************************************************************************************************
+	
 	
 }

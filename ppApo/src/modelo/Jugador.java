@@ -128,13 +128,11 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 		if(this.compareTo(nuevo) > 0) {
 			if(izquierda == null) {
 				izquierda = nuevo;
-				//rotacionIzquierda(izquierda);
 				return true;
 			}
 				
 			else {
 				izquierda.agregarJugador(nuevo);
-//				rotacionDobleIzquierda(izquierda);
 				return false;
 			}
 				
@@ -142,13 +140,11 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 		else
 			if(derecha == null) {
 				derecha = nuevo;
-//				rotacionDerecha(derecha);
 				return true;
 			} 
 				
 			else {
 				derecha.agregarJugador(nuevo);
-//				rotacionDobleDerecha(derecha);
 				return false ;
 			}
 				 
@@ -167,7 +163,7 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 		if( nickname.compareToIgnoreCase(nickName) == 0)  {
 			return this;
 		}
-		else if (nickName.compareToIgnoreCase(nickName) < 0 ) {
+		else if (nickName.compareToIgnoreCase(nickName) > 0 ) {
 			if(izquierda == null)
 				throw new JugadorNoEncontradoException(nickName);
 			else
@@ -210,27 +206,7 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 			derecha = derecha.eliminar(eliminar);
 		return this;
 	}
-	
-	
-	public int calcularAltura() {
-		
-			if ( derecha == null && izquierda == null )
-			return 1;
-			else {
-				int a1 ;
-				int a2 ;
-				if ( izquierda == null )
-					a1 = 0 ;
-				else
-					a1 = izquierda.calcularAltura() ;
-				if ( derecha == null)
-					a2 = 0 ;
-				else
-					a2 = derecha.calcularAltura();
-				return 1 + Math . max ( a1 , a2 ) ;
-			}
-	}
-	
+
 	
 	
 	/**
@@ -239,8 +215,8 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 	 * */
 	@Override
 	public String toString() {
-		return "nombre: "+ this.getNickname() + "\n" + 
-			   "puntage: "+ this.getPuntaje () ;
+		return "Nombre: "+ this.getNickname() + " " + 
+			   "Puntage: "+ this.getPuntaje () ;
 	}
 	
 	//*************************************************************************************
@@ -261,7 +237,7 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 			return j1;
 		}
 		
-
+		// caso 2
 		public Jugador rotacionDerecha(Jugador j1) {
 			
 			Jugador j2 = j1.getDerecha();
@@ -282,7 +258,7 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 		}
 		
 		
-		
+		// caso 4
 		public Jugador rotacionDobleIzquierda(Jugador j3) {
 			
 			j3.setIzquierda(rotacionIzquierda(j3.getIzquierda()));
@@ -290,7 +266,27 @@ public class Jugador implements Serializable , Comparable<Jugador> {
 			return rotacionIzquierda(j3);  
 		}
 		
-	
+
+		public int calcularFE() {
+			
+				if ( derecha == null && izquierda == null )
+				return 1;
+				else {
+					int a1 ;
+					int a2 ;
+					if ( izquierda == null )
+						a1 = 0 ;
+					else
+						a1 = izquierda.calcularFE() ;
+					if ( derecha == null)
+						a2 = 0 ;
+					else
+						a2 = derecha.calcularFE();
+					return 1 + a2-a1 ;
+				}
+		}
+		
+		
 	
 	
 }
