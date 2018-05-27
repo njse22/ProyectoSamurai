@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -13,35 +14,63 @@ import modelo.Partida;
 
 class TestPartida {
 
+	/**
+	 * partida : Partida - clase a la cual se le hara la prueva
+	 * */
 	private Partida partida;
 	
+	
+	/**
+	 * setupEscenario1(): void - incializa una nueva parida
+	 * */
 	void setupEscenario1() {
 		partida = new Partida();
 	}
 	
+	/**
+	 * setupEscenario2(): void - crea una partida con 7 jugadores
+	 * */
 	void setupEscenario2() {
-		setupEscenario1();
+		partida = new Partida();
+		
 		try {
-			partida.agregar("jugador1");
-			partida.agregar("jugador0");	
-		}catch (Exception e) {
-			fail("la prueba fallo");
+			partida.agregar("jugador15");
+			partida.agregar("jugador6");
+			partida.agregar("jugador10");
+			partida.agregar("jugador4");
+			partida.agregar("jugador20");
+			partida.agregar("jugador17");
+			partida.agregar("jugador22");
+		
+			
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+		
 	}
 	
+	
+	/**
+	 *  setupEscenario3() : void - costruye un arbol de jugadores
+	 *  con tres jugadores
+	 * */
 	void setupEscenario3() {
 		setupEscenario1();
 		
 		try {
-			partida.agregar("jugador1");
-			partida.agregar("jugador0");
-			partida.agregar("jugador5");
+			partida.agregar("1");
+			partida.agregar("0");
+			partida.agregar("5");
 		}catch (Exception e) {
 			fail("la prueba fallo");
 		}
 		
 	}
 	
+	
+	/**
+	 * setupEscenario4() : void - construye una partida con nueve jugadores 
+	 * */
 	void setupEscenario4() {
 		
 		partida = new Partida();
@@ -56,27 +85,38 @@ class TestPartida {
 			partida.agregar("jugador0");
 			partida.agregar("jugador4");
 		
-		} catch (Exception e) {
-			fail("la prueba fallo");
+		} catch (JugadorExistenteException e) {
+	
+		} catch (JugadorNoEncontradoException e) {
+			// TODO: handle exception
 		}
 
 	}
 	
-	void setupEscenerio5() {
-		setupEscenario1();
-		setupEscenario4();
-
-	}
-
+	/**
+	 * setupEscenario6() : construye una partida con un solo jugador. 
+	 * */
 	void setupEscenario6() {
 		setupEscenario1();
 		try {
 			partida.agregar("jugadorExistente");
-		} catch (Exception e) {
-			fail("esto no deberia pasar");
+		} catch (JugadorExistenteException e) {
+			
+		} catch(JugadorNoEncontradoException e) {
+			
 		}
 	}
 	
+	/**
+	 * Prueba la adición de jugadores. <br>
+	 * <b> Métodos a probar: </b> 
+	 * <br> agregar. <br>
+	 * <b> Objetivo: </b>  <br>probar que el método agregar(),  agrega
+	 * correctamente jugadores al ABB. </br>
+	 * <b> Resultados esperados: </b> 
+	 * <br> 1. Al agregar un jugador la partida sin jugadores este debe ser
+	 * insertado sin errores. </br>
+	 */
 	@Test
 	void testAgregar1() {
 		try {
@@ -90,8 +130,18 @@ class TestPartida {
 		}
 	}
 
+	/**
+	 * Prueba la adición de jugadores. <br>
+	 * <b> Métodos a probar: </b> 
+	 * <br> agregar. <br>
+	 * <b> Objetivo: </b>  <br>probar que el método agregar(),  agrega
+	 * correctamente jugadores al ABB. </br>
+	 * <b> Resultados esperados: </b> 
+	 * <br> Al agregar un jugador menor que la raiz este se agrega al subarbol 
+	 * izquierdo sin errores. </br>
+	 */
 	@Test
-	void testSAgregar2() {
+	void testAgregar2() {
 		setupEscenario1();
 		try {
 			partida.agregar("1");
@@ -103,13 +153,20 @@ class TestPartida {
 		
 	}
 	
+	/**
+	 * Prueba la adición de jugadores. <br>
+	 * <b> Métodos a probar: </b> 
+	 * <br> agregar. <br>
+	 * <b> Objetivo: </b>  <br>probar que el método agregar(),  agrega
+	 * correctamente jugadores al ABB. </br>
+	 * <b> Resultados esperados: </b> 
+	 * <br>  Al agregar un jugador mayor que la raiz a la partida este 
+	 * se agrega al subarbol derecho sin errores. </br>
+	 */
 	@Test
 	void testAgregar3() {
 		try {
-			setupEscenario1();
-			partida.agregar("1");
-			partida.agregar("0");
-			partida.agregar("5");
+			setupEscenario3();
 			
 			assertEquals("5", partida.getRaiz().getDerecha().getNickname());
 			assertEquals("0", partida.getRaiz().getIzquierda().getNickname());
@@ -121,8 +178,18 @@ class TestPartida {
 		
 	}
 
+	/**
+	 * Prueba la adición de jugadores. <br>
+	 * <b> Métodos a probar: </b> 
+	 * <br> agregar. <br>
+	 * <b> Objetivo: </b>  <br>probar que el método agregar(),  agrega
+	 * correctamente jugadores al ABB. </br>
+	 * <b> Resultados esperados: </b> 
+	 * <br> el metodo agregar agrega a los jugadores segun el criterio de
+	 * un ABB, los jugadores se agregan sin errores </br>
+	 */
 	@Test
-	void testAgregar5() {
+	void testAgregar4() {
 		setupEscenario4();
 		assertEquals("jugador1", partida.getRaiz().getNickname());
 		assertEquals("jugador0", partida.getRaiz().getIzquierda().getNickname());
@@ -136,116 +203,118 @@ class TestPartida {
 		
 	}
 	
+	/**
+	 * Prueba la adición de jugadores. <br>
+	 * <b> Métodos a probar: </b> 
+	 * <br> agregar. <br>
+	 * <b> Objetivo: </b> 
+	 * <br> probar que el método agregar(), lanza una 
+	 * excepcion llamada JugadorExistenteException y 
+	 * solamente lanza esa. </br>
+	 * <b> Resultados esperados: </b> 
+	 * <br> el metodo agregar, lanza la exepcion esperada 
+	 * el jugador no se agrega </br>
+	 */
 	@Test
-	void testAghregar6() {
+	void testAgregar5() {
 		setupEscenario6();
 		try {
 			partida.agregar("jugadorExistente");
-		} catch (Exception e) {
-			// si esta asserci�n se cumple entonces la prueba fue exitosa.
-			assertTrue(true);
+		} catch (JugadorExistenteException e) {
+			assertTrue(true, "si esta excecion es lanzada entonces la prueba fue exitosa");
+		} catch (JugadorNoEncontradoException e) {
+			fail("la excepcion no deberia llegar hasta aca");
 		}
 		
 	}
 	
+	/**
+	 * Prueba la existencia de jugadores en el arbol. <br>
+	 * <b> Métodos a probar: </b> 
+	 * <br> existe <br>
+	 * <b> Objetivo: </b> 
+	 * <br> probar que el método existe(), retorna: -true = si el jugador existe
+	 * 												existe en el arbol
+	 * 												-false = de lo contrario </br>
+	 * <b> Resultados esperados: </b> 
+	 * <br> 1. el jugador : "jugadorExiste", es encontrado en el arbol, el metodo retorna true
+	 * 2. el jugador : "jugadorNoExiste", NO es encontrado en el arbol, el metodo retorna false </br>
+	 */
 	@Test
 	void testExiste() {
 		setupEscenario6();
-		assertTrue(	partida.existe("jugadorExistente"));
+		
+		assertTrue(	partida.existe("jugadorExistente") , "este jugador ya ha sido agregado en el arbol");
+		
+		assertFalse( partida.existe("jugadorNoExiste"), "este jugador no esta en el arbol" );
 	}
 	
+	/**
+	 * Prueba la existencia de jugadores en el arbol. <br>
+	 * <b> Métodos a probar: </b> 
+	 * <br> existe <br>
+	 * <b> Objetivo: </b> 
+	 * <br> probar que el método existe(), retorna: -true = si el jugador existe
+	 * 												existe en el arbol
+	 * 												-false = de lo contrario </br>
+	 * <b> Resultados esperados: </b> 
+	 * <br> los jugadores : "jugador9", "jugador3", "jugador5", "jugador6", son 
+	 * encontrados en el arbol, el metodo retorna true en cada caso. </br>
+	 */
 	@Test
 	void testExiste2() {
-		partida = new Partida();
-		try {
-			partida.agregar("jugador1");
-			partida.agregar("jugador3");
-			partida.agregar("jugador5");
-			partida.agregar("jugador6");
-			partida.agregar("jugador9");
-			partida.agregar("jugador7");
-			partida.agregar("jugador8");
-			partida.agregar("jugador0");
-			partida.agregar("jugador4");
 		
-		} catch (Exception e) {
-			fail("la prueba fallo");
-		}
-	
-		assertTrue( partida.existe("jugador0") );
+		setupEscenario4();
+		assertTrue( partida.existe("jugador9") );
+		assertTrue( partida.existe("jugador3") );
+		assertTrue( partida.existe("jugador5") );
+		assertTrue( partida.existe("jugador6") );
 		
 	}
+	
 	
 	@Test
-	void testInOrden() {
-		partida = new Partida();
-		try {
-			partida.agregar("jugador9");
-			partida.agregar("jugador8");
-			partida.agregar("jugador15");
-			partida.agregar("jugador7");
-			partida.agregar("jugador13");
-			partida.agregar("jugador12");
-			partida.agregar("jugador16");
-			partida.agregar("jugador18");
-			partida.agregar("jugador6");
-			
-			
-			ArrayList<Jugador> arreglo = partida.inOrden(partida.getRaiz()) ; 
-			
-			for (int i = 0; i < arreglo.size()-1 ; i++) {
-				System.out.println(arreglo.get(i).getNickname());	
-			}
-			
-		} catch (JugadorNoEncontradoException e) {
-			fail("la prueba fallo");
-		} catch( JugadorExistenteException e) {
-			fail("la prueba fallo");
-		}
+	void inOnorden() {
+		
+	try {
+		setupEscenario1();
+		
+		partida.agregar("jugador15");
+		partida.agregar("jugador6");
+		partida.agregar("jugador10");
+		partida.agregar("jugador4");
+		partida.agregar("jugador20");
+		partida.agregar("jugador17");
+		partida.agregar("jugador22");
 	
+		partida.inOrden(partida.getRaiz());
+		
+		assertEquals( partida.getRaiz().getIzquierda() ,  partida.getMejoresPuntajes().get(0));
+		assertEquals( partida.getRaiz().getIzquierda().getIzquierda() ,  partida.getMejoresPuntajes().get(1));
+		assertEquals( partida.getRaiz().darMayor() ,  partida.getMejoresPuntajes().get(2));
+		assertEquals( partida.getRaiz().getDerecha() ,  partida.getMejoresPuntajes().get(3));
+		assertEquals( partida.getRaiz().getDerecha().getIzquierda() ,  partida.getMejoresPuntajes().get(4));
+		assertEquals( partida.getRaiz().getIzquierda() ,  partida.getMejoresPuntajes().get(5));
+		
+		
+		
+		for (int i = 0; i < partida.getMejoresPuntajes().size(); i++) {
+			System.out.println(partida.getMejoresPuntajes().get(i));
+		}
+		
+		
+		
+		
+	} catch (JugadorExistenteException e ) {
+		fail("");
+	} catch (JugadorNoEncontradoException e) {
+		fail("");
+		System.out.println("hh");
+	}
+			
+		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-//	@Test
-//	void testInOrden() {
-//		
-//		setupEscenario1();
-//		try {
-//			partida.agregar("jugador1");
-//			partida.agregar("jugador3");
-//			partida.agregar("jugador5");
-//			partida.agregar("jugador6");
-//			partida.agregar("jugador9");
-//			partida.agregar("jugador7");
-//			partida.agregar("jugador8");
-//			partida.agregar("jugador0");
-//			partida.agregar("jugador4");
-//			
-//			partida.getRaiz();
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}	
-//	}
-	
-	
-	
-	
 	
 }
