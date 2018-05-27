@@ -24,26 +24,85 @@ import javax.swing.plaf.FontUIResource;
 import excepciones.JugadorNoEncontradoException;
 import modelo.Jugador;
 
+/**
+ * Clase que permite ordenar y buscar entre una lista de jugadores
+ * @author CAMILO
+ *
+ */
 public class DialogListaJugadores extends JDialog implements ActionListener{
+	
+	/**
+	 * Constante de boton ordenar
+	 */
 
 	public final static String ORDENAR = "ORDENAR";
+	
+	/**
+	 * Constante de boton buscar
+	 */
 	public final static String BUSCAR = "BUSCAR";
+	
+	/**
+	 * Constante de boton regresar
+	 */
 	public final static String REGRESAR = "REGRESAR";
+	
+	/**
+	 * Constante de boton eliminar
+	 */
 	public final static String ELIMINAR = "ELIMINAR";
 	
+	
+	/**
+	 * atributo para el boton ordenar
+	 */
 	private JButton btnOrdenar;
+	
+	/**
+	 * atributo para el boton buscar
+	 */
 	private JButton btnBuscar;
+	
+	/**
+	 * atributo para el boton regresar
+	 */
 	private JButton btnRegresar;
+	
+	/**
+	 * atributo para el boton eliminar
+	 */
 	private JButton btnEliminar;
 	
+	/**
+	 * atributo para agregar objetos de tipo String a la lista
+	 */
 	private DefaultListModel<String> model;
+	
+	/**
+	 * Atributo de tipo lista en el que se incluyen los nombres de los jugadores
+	 */
 	private JList<String> listaJugadores;
+	
+	/**
+	 * atributo para moverse en la lista de jugadores
+	 */
 	private JScrollPane scroll; 
 	
+	/**
+	 * panel contenedor de la lista
+	 */
 	private JPanel panelLista;
 	
+	
+	/*
+	 * relacion con la clase Principal
+	 */
 	private Principal dialogo;
 
+	/**
+	 * Constructor de la clase
+	 * @param dialogo
+	 */
 	public DialogListaJugadores(Principal dialogo) {
 		this.dialogo = dialogo;
 		
@@ -96,19 +155,33 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 	
 	}
 
+	/**
+	 * metodo que permite obtener un modelo
+	 * @return
+	 */
 	public DefaultListModel<String> getModel() {
 		return model;
 	}
 
+	/**
+	 * metodo que permite reasignar un modelo
+	 * @param model
+	 */
 	public void setModel(DefaultListModel<String> model) {
 		this.model = model;
 	}
 	
-	
+	/**
+	 * metodo para remover los componentes de la clase
+	 */
 	public void limpiarLista() {
 		model.removeAllElements();
 	}
 	
+	/**
+	 * metodo que permite actualizar la lista
+	 * @param nodo
+	 */
 	public void refrescarLista(Jugador nodo) {
 //		model.removeAllElements();
 		try {
@@ -130,6 +203,9 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 
 	}
 	
+	/**
+	 * metodo que permite remover los elementos String de la lista
+	 */
 	public void removeAllElementsOfModel() {
 		model.removeAllElements();
 	}
