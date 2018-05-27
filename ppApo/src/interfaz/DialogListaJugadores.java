@@ -204,7 +204,7 @@ public class DialogListaJugadores extends JDialog implements ActionListener{
 	}
 	
 	/**
-	 * metodo que permite remover los elementos String de la lista
+	 * metodo que permite remover los elementos String de la list
 	 */
 	public void removeAllElementsOfModel() {
 		model.removeAllElements();
