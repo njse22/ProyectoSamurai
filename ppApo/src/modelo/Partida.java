@@ -226,6 +226,7 @@ public class Partida {
 	
 	/**
 	 * ordenarPuntagesPorSeleccion() : void
+	 * este metodo ordena segun el criterio de seleccion.
 	 * */
 	public void ordenarPuntagesPorSeleccion() {
 		
