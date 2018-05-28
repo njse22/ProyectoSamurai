@@ -334,7 +334,6 @@ public class DialogoJuego extends JDialog {
 	/**
 	 * moverX(int deltaX, int deltaXdx) : int 
 	 * llama a los metodos mover de la clase personaje 
-	 *  
 	 * */
 	public int moverX(int deltaX, int deltaXdx) {
 		int mover = 0;
