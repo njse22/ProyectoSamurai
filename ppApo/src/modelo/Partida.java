@@ -224,7 +224,9 @@ public class Partida {
 		}
 	}
 	
-	
+	/**
+	 * ordenarPuntagesPorSeleccion() : void
+	 * */
 	public void ordenarPuntagesPorSeleccion() {
 		
 		Jugador[] auxArreglo = new Jugador[mejoresPuntajes.size()];
