@@ -1,11 +1,20 @@
 package excepciones;
 
-public class PuntageNoEncontradoException {
+/**
+ * clase que representa una excepcion relacionada con el puntaje buscado
+ */
+public class PuntageNoEncontradoException extends Exception{
 
-	private String puntageNoEncontrado;
-
+/**
+ * Atributo que representa una cadena especificando la excepcion
+ */
+	private String puntajeNoEncontrado;
+/**
+ * Contructor de la clase 
+ * @param puntageNoEncontrado cadena especificando la excepcion
+ */
 	public PuntageNoEncontradoException(String puntageNoEncontrado) {
-		this.puntageNoEncontrado = puntageNoEncontrado;
+		this.puntajeNoEncontrado = puntageNoEncontrado;
 		
 	}
 	
